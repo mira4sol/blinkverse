@@ -25,7 +25,7 @@ export default class CookiesService {
       if (!Cookie.get(key)) return undefined //? Check if the value exists
       if (typeof Cookie.get(key) === 'undefined') return undefined //? Check if the value is undefined. Probably the same as the first but, we can't be too careful.
 
-      let value: any = Cookie.get(key)
+      const value: any = Cookie.get(key)
       return JSON.parse(value) //? returning the value.
     } catch (err) {
       return undefined

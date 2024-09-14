@@ -62,7 +62,7 @@ export class BlinkService {
     const to = from + ITEMS_PER_PAGE
 
     try {
-      let { data: users, error } = await supabaseClient
+      const { data: users, error } = await supabaseClient
         .from('blink')
         .select('*')
         .range(from, to)
@@ -95,7 +95,7 @@ export class BlinkService {
     const to = from + ITEMS_PER_PAGE
 
     try {
-      let { data: users, error } = await supabaseClient
+      const { data: users, error } = await supabaseClient
         .from('blink')
         .select('*')
         .eq('id', user_id)
@@ -130,7 +130,7 @@ export class BlinkService {
     pub_key: string
   }) {
     try {
-      let getBlink = await supabaseClient
+      const getBlink = await supabaseClient
         .from('blink')
         .select('*')
         .eq('title', payload.title)
@@ -150,7 +150,7 @@ export class BlinkService {
       if (getBlink.data[0])
         return apiResponse(false, 'You already blink that', undefined)
 
-      let { data: blink, error } = await supabaseClient
+      const { data: blink, error } = await supabaseClient
         .from('blink')
         .insert({ id: nanoid(21), ...payload })
         .select()
@@ -188,7 +188,7 @@ export class BlinkService {
     }
   ) {
     try {
-      let getBlink = await BlinkService.getOneBlink(id)
+      const getBlink = await BlinkService.getOneBlink(id)
 
       if (!getBlink.success)
         return apiResponse(
@@ -199,7 +199,7 @@ export class BlinkService {
       if (!getBlink.data)
         return apiResponse(false, 'Blink does not exist', undefined)
 
-      let { data: user, error } = await supabaseClient
+      const { data: user, error } = await supabaseClient
         .from('blink')
         .update({ ...payload })
         .eq('some_column', 'someValue')
@@ -217,7 +217,7 @@ export class BlinkService {
 
   static async deleteBlink(id: string) {
     try {
-      let { data: blink, error } = await supabaseClient
+      const { data: blink, error } = await supabaseClient
         .from('blink')
         .delete()
         .eq('id', id)

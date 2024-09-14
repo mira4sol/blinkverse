@@ -5,7 +5,7 @@ import { supabaseClient } from '../superbase_client.util'
 export class UserService {
   static async getUser(pubKey: string) {
     try {
-      let { data: users, error } = await supabaseClient
+      const { data: users, error } = await supabaseClient
         .from('user')
         .select('*')
         .eq('pub_key', pubKey)
@@ -22,7 +22,7 @@ export class UserService {
 
   static async getUserByName(user_name: string) {
     try {
-      let { data: user, error } = await supabaseClient
+      const { data: user, error } = await supabaseClient
         .from('user')
         .select('*')
         .eq('user_name', user_name)
@@ -37,7 +37,7 @@ export class UserService {
 
   static async loginOrSignUp(pubKey: string) {
     try {
-      let getUser = await UserService.getUser(pubKey)
+      const getUser = await UserService.getUser(pubKey)
 
       if (!getUser.success)
         return apiResponse(
@@ -47,13 +47,15 @@ export class UserService {
         )
       if (getUser.data) return apiResponse(true, 'user details', getUser.data)
 
-      let { data: user, error } = await supabaseClient
+      const { data: user, error } = await supabaseClient
         .from('user')
         .insert({ id: nanoid(21), pub_key: pubKey })
         .select()
         .single()
 
       if (error) return apiResponse(false, 'failed to save user', error.message)
+
+      return apiResponse(true, 'user details', user)
     } catch (error: any) {
       console.log(`loginOrSignUp :`, error?.message)
       return apiResponse(false, 'failed saving user', error?.message)
@@ -67,7 +69,7 @@ export class UserService {
     }
   ) {
     try {
-      let getUser = await UserService.getUser(pub_key)
+      const getUser = await UserService.getUser(pub_key)
 
       if (!getUser.success)
         return apiResponse(
@@ -76,7 +78,7 @@ export class UserService {
           getUser?.message || 'something went wrong'
         )
 
-      let { data: user, error } = await supabaseClient
+      const { data: user, error } = await supabaseClient
         .from('user')
         .update({ ...payload })
         .eq('pub_key', pub_key)

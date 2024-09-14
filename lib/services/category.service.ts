@@ -5,7 +5,7 @@ import { supabaseClient } from '../superbase_client.util'
 export class CategoryService {
   static async getCategories() {
     try {
-      let { data: categories, error } = await supabaseClient
+      const { data: categories, error } = await supabaseClient
         .from('category')
         .select('*')
 

@@ -46,7 +46,7 @@ export const SendNativeSol = async (
       await connection.getLatestBlockhash()
 
     // create a legacy transaction
-    const transaction = new web3.Transaction({
+    const transaction = new Transaction({
       feePayer: fromPubkey,
       blockhash,
       lastValidBlockHeight,

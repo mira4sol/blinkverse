@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import Image from 'next/image'
 
 interface Props {
   title: string
@@ -11,7 +12,7 @@ const EditorPreview = ({ title, description, image_url }: Props) => {
   return (
     <Card className='flex-1'>
       <CardHeader>
-        <img
+        <Image
           src={
             image_url ||
             'https:/ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/'
