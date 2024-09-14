@@ -13,20 +13,39 @@ import {
   Users,
   Zap,
 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { FeatureBox } from './FeatureBox'
 import { FeatureCard } from './FeatureCard'
 
 const HomeView = () => {
   const { toast } = useToast()
 
+  const [visible, setVisible] = useState(true)
+
   const comingSoon = () => {
     toast({ title: 'Coming Soon 🚀' })
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible((v) => !v)
+    }, 500)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <div className='min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 text-white font-sans'>
       <header className='container mx-auto px-4 py-6 flex justify-between items-center'>
-        <h1 className='text-2xl font-bold'>BlinkVerse</h1>
+        <h1 className={`text-2xl font-bold`}>
+          <span
+            className={`${
+              visible ? 'opacity-100' : 'opacity-0'
+            } transition-opacity duration-300`}
+          >
+            Blink
+          </span>
+          Verse
+        </h1>
         {/* <nav>
           <ul className='flex space-x-4'>
             <li>
