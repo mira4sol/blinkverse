@@ -2,6 +2,7 @@ export interface UserInterface {
   id: string
   pub_key: string
   name?: string
+  description?: string
 
   created_at: Date
   updated_at?: Date

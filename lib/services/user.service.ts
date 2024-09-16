@@ -66,6 +66,7 @@ export class UserService {
     pub_key: string,
     payload: {
       name?: string
+      description?: string
     }
   ) {
     try {
@@ -78,15 +79,16 @@ export class UserService {
           getUser?.message || 'something went wrong'
         )
 
-      const { data: user, error } = await supabaseClient
+      const { data, error } = await supabaseClient
         .from('user')
         .update({ ...payload })
         .eq('pub_key', pub_key)
         .select()
+        .single()
 
       if (error) return apiResponse(false, 'failed to save user', error.message)
 
-      return apiResponse(true, 'user details', user)
+      return apiResponse(true, 'user details', data)
     } catch (error: any) {
       console.log(`updateUser :`, error?.message)
       return apiResponse(false, 'failed saving user', error?.message)

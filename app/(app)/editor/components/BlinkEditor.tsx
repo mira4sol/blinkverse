@@ -86,7 +86,7 @@ const BlinkEditor = () => {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    // console.log(values)
 
     setCreateBlinkLoader(true)
 

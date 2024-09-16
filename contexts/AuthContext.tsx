@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
+import { AccountSetupDialog } from '@/components/AccountSetupDialog'
 import { useToast } from '@/hooks/use-toast'
 import {
   AuthContextProps,
@@ -40,7 +41,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
   useEffect(() => {
     setIsLoggedIn(!!publicKey)
 
-    if (!publicKey && isLoggedIn) logout()
+    if (!publicKey && !isLoggedIn) logout()
     else fetchProfile()
   }, [publicKey])
 
@@ -50,11 +51,10 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
 
   //? function to log a user out
   const logout = () => {
-    // CookiesService.remover(COOKIE_TOKEN_KEY)
     CookiesService.remove(COOKIE_USER_DATA_KEY)
     setIsLoggedIn(false)
     setUser(null)
-    router.replace('/hub')
+    // router.replace('/hub')
   }
 
   // ? function to set user to cookie and state
@@ -88,6 +88,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
 
   return (
     <AuthContext.Provider value={authContextValue}>
+      <AccountSetupDialog />
       {children}
     </AuthContext.Provider>
   )
