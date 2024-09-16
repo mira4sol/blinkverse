@@ -6,6 +6,7 @@ import {
 } from '@/lib/blink.lib'
 import { BlinkService } from '@/lib/services/blink.service'
 import { SendNativeSol } from '@/lib/solana.lib'
+import { getSplTokenAddress, SendSplToken } from '@/lib/spl.helpers'
 import {
   ActionPostRequest,
   ActionPostResponse,
@@ -42,7 +43,7 @@ export const GET = async (req: Request) => {
   const toPubkey = new PublicKey(data?.pub_key)
 
   const baseHref = new URL(
-    `/api/actions/blinkme?blink=${blink_id}&to=${toPubkey.toBase58()}`,
+    `/api/actions/blink?blink=${blink_id}&to=${toPubkey.toBase58()}`,
     requestUrl.origin
   ).toString()
 
@@ -90,6 +91,13 @@ export const POST = async (req: Request) => {
         fromPubkey: account,
       })
     } else {
+      console.log('spl token', token)
+      transaction = await SendSplToken(connection, {
+        amount,
+        fromPubKey: account,
+        toPubKey: toPubkey,
+        mintAddress: new PublicKey(getSplTokenAddress(token) || ''),
+      })
       // await jupSwap({ amount, userPubKey: account })
       // transaction = await sendSPLToken(connection, {
       //   amount,

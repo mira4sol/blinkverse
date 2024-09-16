@@ -1,7 +1,7 @@
-import AppView from './components/App'
+import HubView from './components/HubView'
 
 const AppPage = () => {
-  return <AppView />
+  return <HubView />
 }
 
 export default AppPage

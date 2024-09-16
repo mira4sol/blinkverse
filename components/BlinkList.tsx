@@ -42,8 +42,9 @@ const BlinkList = () => {
   }
 
   useEffect(() => {
-    if (user) fetchBlinks().finally(() => setBlinksLoading(false))
-  }, [user])
+    // if (user)
+    fetchBlinks().finally(() => setBlinksLoading(false))
+  }, [])
 
   return (
     <div className=''>

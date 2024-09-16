@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import LoadingIcon from '@/components/ui/LoadingIcon'
 import {
   Select,
   SelectContent,
@@ -29,6 +30,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/hooks/use-toast'
 import { CategoryInterface } from '@/interfaces/models.interface'
+import { BlinkService } from '@/lib/services/blink.service'
 import { CategoryService } from '@/lib/services/category.service'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -42,7 +44,7 @@ import EditorPreview from './EditorPreview'
 
 const formSchema = z.object({
   title: z.string().min(3).max(20),
-  category_id: z.string().min(3).max(20),
+  category_id: z.string().min(3),
   image_url: z.string().min(0),
   description: z.string().min(5).max(100),
   label: z.string().min(0).max(20),
@@ -55,6 +57,7 @@ const BlinkEditor = () => {
   const { toast } = useToast()
 
   const [categories, setCategories] = useState<CategoryInterface[]>([])
+  const [createBlinkLoader, setCreateBlinkLoader] = useState(false)
 
   const fetchCategories = async () => {
     Loading.circle()
@@ -76,16 +79,39 @@ const BlinkEditor = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      description: '',
+      title: 'Blink Title',
+      description: 'Blink Description',
       label: 'Send',
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
+
+    setCreateBlinkLoader(true)
+
+    const createBlinkReq = await BlinkService.createBlink({
+      user_id: user?.id || '',
+      category_id: values.category_id,
+      pub_key: user?.pub_key || '',
+      title: values?.title,
+      description: values?.description,
+      image_url: values?.image_url,
+      label: values.label,
+    })
+
+    if (!createBlinkReq.success) {
+      setCreateBlinkLoader(false)
+      return toast({
+        title: 'Unable to create blink',
+        description: createBlinkReq.message,
+        variant: 'destructive',
+      })
+    }
+
+    toast({ title: 'Blink Created' })
+    setCreateBlinkLoader(false)
+    await router.push('/profile')
   }
 
   useEffect(() => {
@@ -96,17 +122,14 @@ const BlinkEditor = () => {
     <section className='flex gap-10'>
       {/* Editor */}
       <div className='flex-1'>
-        <Card>
-          <CardHeader>
-            <CardTitle>Blink Editor</CardTitle>
-          </CardHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+            <Card>
+              <CardHeader>
+                <CardTitle>Blink Editor</CardTitle>
+              </CardHeader>
 
-          <CardContent>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className='space-y-8'
-              >
+              <CardContent>
                 {/* Title field */}
                 <FormField
                   control={form.control}
@@ -209,17 +232,17 @@ const BlinkEditor = () => {
                 />
                 {/* End of title field */}
                 {/* End of Label Field */}
-              </form>
-            </Form>
-          </CardContent>
+              </CardContent>
 
-          <CardFooter className='flex items-center justify-between'>
-            <Link href={'/profile'}>
-              <Button variant={'destructive'}>Cancel</Button>
-            </Link>
-            <Button>Create</Button>
-          </CardFooter>
-        </Card>
+              <CardFooter className='flex items-center justify-between'>
+                <Link href={'/profile'}>
+                  <Button variant={'destructive'}>Cancel</Button>
+                </Link>
+                <Button> {createBlinkLoader && <LoadingIcon />} Create</Button>
+              </CardFooter>
+            </Card>
+          </form>
+        </Form>
       </div>
 
       {/* Preview */}
@@ -227,6 +250,7 @@ const BlinkEditor = () => {
         title={form.watch('title')}
         description={form.watch('description')}
         label={form.watch('label')}
+        image_url={form.watch('image_url')}
       />
     </section>
   )

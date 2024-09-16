@@ -3,6 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext'
 import { Edit, LogOut, User } from 'lucide-react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { WalletMultiButton } from './dynamic/WalletAdapters'
 import { Button } from './ui/button'
 import {
@@ -18,22 +19,40 @@ import {
 const AppBar = () => {
   const { isLoggedIn } = useAuth()
 
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisible((v) => !v)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <header className='bg-blue-main px-10 py-1.5'>
+    <header className='bg-gradient-to-br from-purple-900 to-indigo-900 px-10 py-4'>
       <nav className='flex flex-1 items-center justify-between'>
         <Link href={'/hub'}>
           <p className='text-white font-[family-name:var(--font-geist-mono)]'>
-            BlinkVerse
+            <span
+              className={`${
+                visible ? 'opacity-100' : 'opacity-0'
+              } transition-opacity duration-300`}
+            >
+              Blink
+            </span>
+            Verse
           </p>
         </Link>
 
         <div className='flex items-center gap-3'>
-          <WalletMultiButton />
+          <WalletMultiButton style={{ background: '0 0% 9%' }} />
 
           {isLoggedIn && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button>Account</Button>
+                <Button className='bg-[#512da8] gap-1 py-6'>
+                  <User className='w-4 h-4' /> Account
+                </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className='w-56'>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

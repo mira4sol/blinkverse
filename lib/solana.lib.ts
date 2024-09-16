@@ -28,7 +28,7 @@ export const SendNativeSol = async (
 
     console.log('minimum balance', minimumBalance, amount * LAMPORTS_PER_SOL)
     if (amount * LAMPORTS_PER_SOL < minimumBalance) {
-      // throw `account may not be rent exempt: ${toPubkey.toBase58()}`
+      throw new Error(`account may not be rent exempt: ${toPubkey.toBase58()}`)
       // return Response.json({
       //   error: `account may not be rent exempt: ${toPubkey.toBase58()}`,
       // })

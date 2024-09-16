@@ -56,7 +56,7 @@ export class BlinkService {
    * with a failure status, a message indicating "failed fetching user", and the error message
    * encountered during the operation.
    */
-  static async fetchBlinks(page: number = 0) {
+  static async fetchBlinks(page: number = 0, user_id?: string) {
     const ITEMS_PER_PAGE = 20
     const from = page * ITEMS_PER_PAGE
     const to = from + ITEMS_PER_PAGE

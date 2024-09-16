@@ -13,6 +13,7 @@ import {
   Users,
   Zap,
 } from 'lucide-react'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { FeatureBox } from './FeatureBox'
 import { FeatureCard } from './FeatureCard'
@@ -21,10 +22,6 @@ const HomeView = () => {
   const { toast } = useToast()
 
   const [visible, setVisible] = useState(true)
-
-  const comingSoon = () => {
-    toast({ title: 'Coming Soon 🚀' })
-  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -75,13 +72,12 @@ const HomeView = () => {
           <p className='text-xl mb-8'>
             Seamless on-chain interactions for the Solana ecosystem
           </p>
-          <button
-            className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center'
-            onClick={comingSoon}
-          >
-            Get Started
-            <ArrowRight className='ml-2' />
-          </button>
+          <Link href={'/hub'}>
+            <button className='bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-full inline-flex items-center'>
+              Get Started
+              <ArrowRight className='ml-2' />
+            </button>
+          </Link>
         </section>
 
         <section id='features' className='grid md:grid-cols-3 gap-8 mb-16'>

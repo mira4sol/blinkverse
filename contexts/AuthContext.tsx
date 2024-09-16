@@ -54,7 +54,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
     CookiesService.remove(COOKIE_USER_DATA_KEY)
     setIsLoggedIn(false)
     setUser(null)
-    router.replace('/')
+    router.replace('/hub')
   }
 
   // ? function to set user to cookie and state
