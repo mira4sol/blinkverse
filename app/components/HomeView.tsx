@@ -65,6 +65,7 @@ const HomeView = () => {
       </header>
 
       <main className='container mx-auto px-4 py-12'>
+        {/* Top Banner */}
         <section className='text-center mb-16'>
           <h2 className='text-5xl font-bold mb-4'>
             Power Your Social Future with BlinkVerse
@@ -79,7 +80,9 @@ const HomeView = () => {
             </button>
           </Link>
         </section>
+        {/* End of top banner */}
 
+        {/* Features section */}
         <section id='features' className='grid md:grid-cols-3 gap-8 mb-16'>
           <FeatureCard
             icon={<Zap size={24} />}
@@ -112,7 +115,9 @@ const HomeView = () => {
             description='Enhance social media with on-chain actions'
           />
         </section>
+        {/* End of feature sections */}
 
+        {/* About BlinkVerse Section */}
         <section className='relative py-20 overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-blue-700'>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIwOTEzOS0xLjc5MDg2MS00LTQtNHMtNCAxLjc5MDg2MS00IDQgMS43OTA4NjEgNCA0IDQgNC0xLjc5MDg2MSA0LTR6bTAtOGMwLTIuMjA5MTM5LTEuNzkwODYxLTQtNC00cy00IDEuNzkwODYxLTQgNCAxLjc5MDg2MSA0IDQgNCA0LTEuNzkwODYxIDQtNHptLTggNGMwLTIuMjA5MTM5LTEuNzkwODYxLTQtNC00cy00IDEuNzkwODYxLTQgNCAxLjc5MDg2MSA0IDQgNCA0LTEuNzkwODYxIDQtNHptOCAwYzAtMi4yMDkxMzktMS43OTA4NjEtNC00LTRzLTQgMS43OTA4NjEtNCA0IDEuNzkwODYxIDQgNCA0IDQtMS43OTA4NjEgNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
           <div className='container mx-auto px-4 relative z-10'>
@@ -169,8 +174,10 @@ const HomeView = () => {
             </div>
           </div>
         </section>
+        {/* End of About BlinkVerse Section */}
       </main>
 
+      {/* Footer section */}
       <footer className='bg-black bg-opacity-30 py-8'>
         <div className='container mx-auto px-4 flex flex-col md:flex-row justify-between items-center'>
           <div className='mb-4 md:mb-0'>
@@ -190,6 +197,7 @@ const HomeView = () => {
           </div>
         </div>
       </footer>
+      {/* End of footer section */}
     </div>
   )
 }
