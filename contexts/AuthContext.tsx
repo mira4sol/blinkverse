@@ -3,16 +3,12 @@
 
 import { AccountSetupDialog } from '@/components/AccountSetupDialog'
 import { useToast } from '@/hooks/use-toast'
-import {
-  AuthContextProps,
-  ReactChildrenProps,
-  UserInterface,
-} from '@/interfaces'
+import { AuthContextProps, ReactChildrenProps } from '@/interfaces'
 import { COOKIE_USER_DATA_KEY } from '@/lib/constants/app.constants'
 import CookiesService from '@/lib/cookie.lib'
 import { UserService } from '@/lib/services/user.service'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
 
 //? initial context state
@@ -21,6 +17,7 @@ const initialAuthState: AuthContextProps = {
   user: null,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setUser: (user: any) => null,
+  isUserLoading: true,
 }
 
 //? declaration of auth context
@@ -32,34 +29,58 @@ export const useAuth = () => {
 }
 
 export default function AuthContextProvider({ children }: ReactChildrenProps) {
-  const { publicKey } = useWallet()
+  const { publicKey, connected, wallet } = useWallet()
   const { toast } = useToast()
   const router = useRouter()
+  const pathname = usePathname()
 
-  const [isLoggedIn, setIsLoggedIn] = useState(!!publicKey) //? isLoggedIn state
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState(CookiesService.get(COOKIE_USER_DATA_KEY))
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    setIsLoggedIn(!!publicKey)
+    const initAuth = async () => {
+      setIsLoading(true)
+      if (connected && publicKey) {
+        await fetchProfile()
+        setIsLoggedIn(true)
+      } else {
+        const savedUser = CookiesService.get(COOKIE_USER_DATA_KEY)
+        if (savedUser) {
+          setUser(savedUser)
+          setIsLoggedIn(true)
+        } else {
+          logout()
+        }
+      }
+      setIsLoading(false)
+    }
 
-    if (!publicKey && !isLoggedIn) logout()
-    else fetchProfile()
-  }, [publicKey])
+    initAuth()
 
-  const [user, setUser] = useState<UserInterface | null>(
-    CookiesService.get(COOKIE_USER_DATA_KEY)
-  ) //? user state
+    if (wallet) {
+      wallet.adapter.on('disconnect', logout)
+    }
+  }, [connected, publicKey])
+
+  useEffect(() => {
+    const publicRoutes = ['/', '/hub']
+    if (!isLoading && !isLoggedIn && !publicRoutes.includes(pathname)) {
+      router.replace('/hub')
+    }
+  }, [isLoggedIn, isLoading, pathname])
 
   //? function to log a user out
   const logout = () => {
     CookiesService.remove(COOKIE_USER_DATA_KEY)
     setIsLoggedIn(false)
     setUser(null)
-    // router.replace('/hub')
+    router.replace('/hub')
   }
 
   // ? function to set user to cookie and state
   const handleSetUser = (passedUser: any) => {
-    const newUser = { ...user, ...passedUser }
+    const newUser = { ...(user || {}), ...passedUser }
     CookiesService.setter(COOKIE_USER_DATA_KEY, newUser)
     setUser(newUser)
   }
@@ -84,6 +105,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
     isLoggedIn,
     user,
     setUser: handleSetUser,
+    isUserLoading: isLoading,
   }
 
   return (
