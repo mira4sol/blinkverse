@@ -29,7 +29,7 @@ const AppBar = () => {
   }, [])
 
   return (
-    <header className='bg-gradient-to-br from-purple-900 to-indigo-900 px-10 py-4'>
+    <header className='bg-gradient-to-br from-purple-900 to-indigo-900 px-4 md:px-10 py-4'>
       <nav className='flex flex-1 items-center justify-between'>
         <Link href={'/hub'}>
           <p className='text-white font-[family-name:var(--font-geist-mono)]'>
@@ -51,7 +51,8 @@ const AppBar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className='bg-[#512da8] gap-1 py-6'>
-                  <User className='w-4 h-4' /> Account
+                  <User className='w-4 h-4' />{' '}
+                  <span className='hidden md:block'>Account</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className='w-56'>

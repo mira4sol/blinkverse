@@ -33,7 +33,6 @@ import { CategoryInterface } from '@/interfaces/models.interface'
 import { BlinkService } from '@/lib/services/blink.service'
 import { CategoryService } from '@/lib/services/category.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useWallet } from '@solana/wallet-adapter-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Loading } from 'notiflix'
@@ -45,14 +44,14 @@ import EditorPreview from './EditorPreview'
 const formSchema = z.object({
   title: z.string().min(3).max(20),
   category_id: z.string().min(3),
-  image_url: z.string().min(0),
+  image_url: z.string().min(3).optional(),
   description: z.string().min(5).max(100),
   label: z.string().min(0).max(20),
 })
 
 const BlinkEditor = () => {
   const { user } = useAuth()
-  const { publicKey } = useWallet()
+  // const { publicKey } = useWallet()
   const router = useRouter()
   const { toast } = useToast()
 
@@ -79,8 +78,8 @@ const BlinkEditor = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: 'Blink Title',
-      description: 'Blink Description',
+      title: '',
+      description: '',
       label: 'Send',
     },
   })
@@ -119,7 +118,7 @@ const BlinkEditor = () => {
   }, [])
 
   return (
-    <section className='flex gap-10'>
+    <section className='flex flex-col md:flex-row gap-10'>
       {/* Editor */}
       <div className='flex-1'>
         <Form {...form}>

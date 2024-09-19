@@ -22,9 +22,13 @@ import {
 
 const headers = ACTIONS_CORS_HEADERS
 
-export const GET = async (req: Request) => {
+export const GET = async (
+  req: Request,
+  { params }: { params: { blink_id: string } }
+) => {
   const requestUrl = new URL(req.url)
-  const blink_id = requestUrl.searchParams.get('blink')
+  // const blink_id = requestUrl.searchParams.get('blink')
+  const { blink_id } = params
 
   if (!blink_id) {
     return blinkError("'blink' url param not found")
@@ -63,7 +67,7 @@ export const GET = async (req: Request) => {
 export const POST = async (req: Request) => {
   console.log('I ran', new Date(Date.now()).toLocaleTimeString())
   const requestUrl = new URL(req.url)
-  const { amount, toPubkey, blink_id, token } = validatedQueryParams(requestUrl)
+  const { amount, toPubkey, token } = validatedQueryParams(requestUrl)
 
   console.log('amount', amount, 'toPubkey', toPubkey.toBase58(), 'token', token)
 

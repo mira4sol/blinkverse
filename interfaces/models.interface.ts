@@ -20,6 +20,9 @@ export interface BlinkInterface {
 
   created_at: Date
   updated_at?: Date
+
+  // relations
+  category?: CategoryInterface
 }
 
 export interface CategoryInterface {

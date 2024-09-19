@@ -62,18 +62,29 @@ export class BlinkService {
     const to = from + ITEMS_PER_PAGE
 
     try {
-      const { data: users, error } = await supabaseClient
+      let query = supabaseClient
         .from('blink')
-        .select('*')
+        .select('*, category(*)')
         .range(from, to)
 
-      if (error)
-        return apiResponse(false, error?.message || 'failed to get user', error)
+      if (user_id) {
+        query = query.eq('user_id', user_id)
+      }
 
-      return apiResponse(true, 'user details', users)
+      const { data: blinks, error } = await query
+
+      console.log('blink data', blinks)
+      if (error)
+        return apiResponse(
+          false,
+          error?.message || 'failed to get blinks',
+          error
+        )
+
+      return apiResponse(true, 'blink details', blinks)
     } catch (error: any) {
-      console.log(`getUser: `, error?.message)
-      return apiResponse(false, 'failed fetching user', error?.message)
+      console.log(`fetchBlinks: `, error?.message)
+      return apiResponse(false, 'failed fetching blinks', error?.message)
     }
   }
 

@@ -72,12 +72,14 @@ export class UserService {
     try {
       const getUser = await UserService.getUser(pub_key)
 
-      if (!getUser.success)
+      if (!getUser.success) {
+        console.log('user fetch error', getUser.message)
         return apiResponse(
           false,
           'user details',
           getUser?.message || 'something went wrong'
         )
+      }
 
       const { data, error } = await supabaseClient
         .from('user')
@@ -86,7 +88,10 @@ export class UserService {
         .select()
         .single()
 
-      if (error) return apiResponse(false, 'failed to save user', error.message)
+      if (error) {
+        console.log('user update error', error.message)
+        return apiResponse(false, 'failed to save user', error.message)
+      }
 
       return apiResponse(true, 'user details', data)
     } catch (error: any) {

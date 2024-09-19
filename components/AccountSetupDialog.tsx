@@ -74,7 +74,7 @@ export function AccountSetupDialog() {
       })
     }
 
-    setUser(updateUserReq.data)
+    console.log('user', updateUserReq.data)
     toast({ title: 'Account set up successfully' })
     setLoading(false)
   }
