@@ -47,7 +47,7 @@ export const GET = async (
   const toPubkey = new PublicKey(data?.pub_key)
 
   const baseHref = new URL(
-    `/api/actions/blink?blink=${blink_id}&to=${toPubkey.toBase58()}`,
+    `/api/actions/verse/${blink_id}&to=${toPubkey.toBase58()}`,
     requestUrl.origin
   ).toString()
 
@@ -64,9 +64,13 @@ export const GET = async (
 
 // export const OPTIONS = GET
 
-export const POST = async (req: Request) => {
+export const POST = async (
+  req: Request
+  // { params }: { params: { blink_id: string } }
+) => {
   console.log('I ran', new Date(Date.now()).toLocaleTimeString())
   const requestUrl = new URL(req.url)
+  // const { blink_id } = params
   const { amount, toPubkey, token } = validatedQueryParams(requestUrl)
 
   console.log('amount', amount, 'toPubkey', toPubkey.toBase58(), 'token', token)
@@ -86,6 +90,7 @@ export const POST = async (req: Request) => {
     }
 
     const connection = new Connection(clusterApiUrl('mainnet-beta'))
+
     let transaction: Transaction = new Transaction()
 
     if (token === 'sol') {

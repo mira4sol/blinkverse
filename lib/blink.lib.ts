@@ -4,7 +4,7 @@ import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 export const blinkError = (errorMessage: string) => {
   const action: ActionGetResponse = {
     title: 'An error occur',
-    icon: 'https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/',
+    icon: `https://www.blinkverse.fun/images/logo.png`,
     description: ``,
     label: '',
     type: 'action',
@@ -29,9 +29,7 @@ export const generatePaymentBlink = ({
 }) => {
   const payload: ActionGetResponse = {
     title,
-    icon:
-      icon ||
-      'https://ucarecdn.com/7aa46c85-08a4-4bc7-9376-88ec48bb1f43/-/preview/880x864/-/quality/smart/-/format/auto/',
+    icon: icon || `https://www.blinkverse.fun/images/logo.png`,
     description,
     label,
     type: 'action',
@@ -39,7 +37,7 @@ export const generatePaymentBlink = ({
       actions: [
         {
           label: 'Blink Me 😉',
-          href: `${baseURL}&amount={amount}&token={token}`,
+          href: `${baseURL}?amount={amount}&token={token}`,
           parameters: [
             {
               type: 'radio',
@@ -67,7 +65,6 @@ export const generatePaymentBlink = ({
 
 export const validatedQueryParams = (requestUrl: URL) => {
   let amount: number = 0
-  let blink_id: string = ''
   let token: string = ''
 
   let toPubkey: PublicKey = new PublicKey(
@@ -76,6 +73,7 @@ export const validatedQueryParams = (requestUrl: URL) => {
 
   try {
     if (requestUrl.searchParams.get('to')) {
+      console.log('to', requestUrl.searchParams.get('to'))
       toPubkey = new PublicKey(requestUrl.searchParams.get('to')!)
     }
   } catch (err) {
@@ -83,6 +81,7 @@ export const validatedQueryParams = (requestUrl: URL) => {
   }
 
   try {
+    console.log('amount', requestUrl.searchParams.get('amount'))
     if (requestUrl.searchParams.get('amount')) {
       amount =
         parseFloat(requestUrl.searchParams.get('amount')!) * LAMPORTS_PER_SOL
@@ -90,15 +89,6 @@ export const validatedQueryParams = (requestUrl: URL) => {
 
     if (amount <= 0) throw 'amount is too small'
   } catch (err) {
-    throw 'Invalid input query parameter: amount'
-  }
-
-  try {
-    if (!requestUrl.searchParams.get('blink'))
-      throw "input query 'blink' not found"
-
-    blink_id = requestUrl.searchParams.get('blink')!
-  } catch (error) {
     throw 'Invalid input query parameter: amount'
   }
 
@@ -113,7 +103,6 @@ export const validatedQueryParams = (requestUrl: URL) => {
   return {
     amount,
     toPubkey,
-    blink_id,
     token,
   }
 }

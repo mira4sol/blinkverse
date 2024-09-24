@@ -1,5 +1,4 @@
 import {
-  clusterApiUrl,
   Connection,
   LAMPORTS_PER_SOL,
   PublicKey,
@@ -20,7 +19,6 @@ export const SendNativeSol = async (
   }
 ) => {
   try {
-    const connection = new Connection(clusterApiUrl('mainnet-beta'))
     // ensure the receiving account will be rent exempt
     const minimumBalance = await connection.getMinimumBalanceForRentExemption(
       0 // note: simple accounts that just store native SOL have `0` bytes of data
