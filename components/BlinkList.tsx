@@ -24,7 +24,7 @@ const BlinkList = () => {
 
   const computeUrl = (id: string) => {
     return typeof window !== undefined
-      ? `solana-action:${window?.location?.origin}/api/actions/blink?blink=${id}`
+      ? `solana-action:${window?.location?.origin}/api/actions/verse/${id}`
       : ''
   }
 

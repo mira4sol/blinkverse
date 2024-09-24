@@ -67,6 +67,10 @@ export function AccountSetupDialog() {
 
     if (!updateUserReq.success) {
       setLoading(false)
+
+      if (updateUserReq?.message === 'username already in use')
+        form.setError('username', { message: updateUserReq.message })
+
       return toast({
         title: 'Unable to update profile',
         description: updateUserReq.message,
@@ -74,13 +78,16 @@ export function AccountSetupDialog() {
       })
     }
 
-    console.log('user', updateUserReq.data)
+    console.log('user update', updateUserReq.data)
+    setUser(updateUserReq.data || user)
     toast({ title: 'Account set up successfully' })
     setLoading(false)
   }
 
   useEffect(() => {
     if (!user) return
+
+    console.log('User', user)
 
     if (!user.name) setIsDialogOpen(true)
     else setIsDialogOpen(false)

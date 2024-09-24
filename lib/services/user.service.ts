@@ -81,6 +81,7 @@ export class UserService {
         )
       }
 
+      console.log(pub_key, payload)
       const { data, error } = await supabaseClient
         .from('user')
         .update({ ...payload })
@@ -89,7 +90,13 @@ export class UserService {
         .single()
 
       if (error) {
-        console.log('user update error', error.message)
+        console.log('user update error', error)
+        if (
+          error.message ===
+          'duplicate key value violates unique constraint "user_name_key"'
+        )
+          return apiResponse(false, 'username already in use', error.message)
+
         return apiResponse(false, 'failed to save user', error.message)
       }
 

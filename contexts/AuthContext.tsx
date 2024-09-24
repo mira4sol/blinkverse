@@ -38,6 +38,8 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
   const [user, setUser] = useState(CookiesService.get(COOKIE_USER_DATA_KEY))
   const [isLoading, setIsLoading] = useState(true)
 
+  const publicRoutes = ['/', '/hub']
+
   useEffect(() => {
     const initAuth = async () => {
       setIsLoading(true)
@@ -50,7 +52,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
           setUser(savedUser)
           setIsLoggedIn(true)
         } else {
-          logout()
+          // logout()
         }
       }
       setIsLoading(false)
@@ -64,9 +66,10 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
   }, [connected, publicKey])
 
   useEffect(() => {
-    const publicRoutes = ['/', '/hub']
-    if (!isLoading && !isLoggedIn && !publicRoutes.includes(pathname)) {
-      router.replace('/hub')
+    if (!isLoading && !isLoggedIn) {
+      if (!publicRoutes.includes(pathname)) {
+        router.replace('/hub')
+      }
     }
   }, [isLoggedIn, isLoading, pathname])
 
@@ -75,7 +78,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
     CookiesService.remove(COOKIE_USER_DATA_KEY)
     setIsLoggedIn(false)
     setUser(null)
-    router.replace('/hub')
+    // router.replace('/hub')
   }
 
   // ? function to set user to cookie and state
@@ -110,7 +113,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
 
   return (
     <AuthContext.Provider value={authContextValue}>
-      <AccountSetupDialog />
+      {connected && publicKey && user && <AccountSetupDialog />}
       {children}
     </AuthContext.Provider>
   )
