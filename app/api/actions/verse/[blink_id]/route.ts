@@ -10,6 +10,7 @@ import { getSplTokenAddress, SendSplToken } from '@/lib/spl.helpers'
 import {
   ActionPostRequest,
   ActionPostResponse,
+  BLOCKCHAIN_IDS,
   createActionHeaders,
   createPostResponse,
 } from '@solana/actions'
@@ -21,7 +22,10 @@ import {
   Transaction,
 } from '@solana/web3.js'
 
-const headers = createActionHeaders()
+const headers = createActionHeaders({
+  chainId: BLOCKCHAIN_IDS.mainnet,
+  actionVersion: '2.1.3',
+})
 
 export const GET = async (
   req: Request,
