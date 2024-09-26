@@ -36,7 +36,7 @@ export const generatePaymentBlink = ({
     links: {
       actions: [
         {
-          label: 'Blink Me 😉',
+          label: label || 'Send 😉',
           href: `${baseURL}?amount={amount}&token={token}`,
           parameters: [
             {

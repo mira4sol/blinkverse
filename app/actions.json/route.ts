@@ -6,13 +6,13 @@ export async function GET(request: Request) {
     rules: [
       // map all root level routes to an action
       {
-        pathPattern: '/*',
-        apiPath: '/api/actions/*',
+        pathPattern: '/verse/*',
+        apiPath: '/api/actions/verse/*',
       },
       // idempotent rule as the fallback
       {
         pathPattern: '/api/actions/**',
-        apiPath: '/api/actions/**',
+        apiPath: '/api/actions/verse/**',
       },
     ],
   }
@@ -21,3 +21,7 @@ export async function GET(request: Request) {
     headers: createActionHeaders(),
   })
 }
+
+// DO NOT FORGET TO INCLUDE THE `OPTIONS` HTTP METHOD
+// THIS WILL ENSURE CORS WORKS FOR BLINKS
+export const OPTIONS = GET

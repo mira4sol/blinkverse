@@ -139,10 +139,10 @@ export const POST = async (
   }
 }
 
+// DO NOT FORGET TO INCLUDE THE `OPTIONS` HTTP METHOD
+// THIS WILL ENSURE CORS WORKS FOR BLINKS
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-// export const OPTIONS = (req: Request) => {
-//   return Response.json(null, {
-//     headers,
-//   })
-// }
-export const OPTIONS = GET
+export const OPTIONS = async (req: Request) => {
+  return new Response(null, { headers })
+}
+// export const OPTIONS = GET
