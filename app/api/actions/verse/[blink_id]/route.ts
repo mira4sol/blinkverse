@@ -16,6 +16,7 @@ import {
 import {
   clusterApiUrl,
   Connection,
+  LAMPORTS_PER_SOL,
   PublicKey,
   Transaction,
 } from '@solana/web3.js'
@@ -98,7 +99,7 @@ export const POST = async (
 
     if (token === 'sol') {
       transaction = await SendNativeSol(connection, {
-        amount,
+        amount: amount * LAMPORTS_PER_SOL,
         toPubkey,
         fromPubkey: account,
       })

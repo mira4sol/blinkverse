@@ -1,5 +1,5 @@
 import { ActionGetResponse, ACTIONS_CORS_HEADERS } from '@solana/actions'
-import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import { PublicKey } from '@solana/web3.js'
 
 export const blinkError = (errorMessage: string) => {
   const action: ActionGetResponse = {
@@ -83,8 +83,7 @@ export const validatedQueryParams = (requestUrl: URL) => {
   try {
     console.log('amount', requestUrl.searchParams.get('amount'))
     if (requestUrl.searchParams.get('amount')) {
-      amount =
-        parseFloat(requestUrl.searchParams.get('amount')!) * LAMPORTS_PER_SOL
+      amount = parseFloat(requestUrl.searchParams.get('amount')!)
     }
 
     if (amount <= 0) throw 'amount is too small'
