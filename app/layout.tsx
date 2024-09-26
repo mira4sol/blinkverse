@@ -33,7 +33,17 @@ export const metadata: Metadata = {
     description: 'Powering Solana Social Interactions',
     images: `https://www.blinkverse.fun/images/logo.png`,
   },
-  keywords: ['e-commerce', 'ecommerce', 'sp', 'service provider'],
+  keywords: [
+    'solana',
+    'blink',
+    'defi',
+    'nft',
+    'tip',
+    'donation',
+    'crowdfunding',
+    'web3',
+    'blockchain',
+  ],
 }
 
 export default function RootLayout({
