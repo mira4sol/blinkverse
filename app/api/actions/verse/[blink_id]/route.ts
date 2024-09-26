@@ -89,7 +89,10 @@ export const POST = async (
       })
     }
 
-    const connection = new Connection(clusterApiUrl('mainnet-beta'))
+    const connection = new Connection(
+      clusterApiUrl('mainnet-beta'),
+      'confirmed'
+    )
 
     let transaction: Transaction = new Transaction()
 
@@ -122,8 +125,6 @@ export const POST = async (
         transaction: transaction,
         message: `Sent ${amount} SOL to: ${toPubkey.toBase58()}`,
       },
-      // note: no additional signers are needed
-      // signers: [],
     })
 
     return Response.json(payload, {
@@ -139,8 +140,9 @@ export const POST = async (
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const OPTIONS = (req: Request) => {
-  return Response.json(null, {
-    headers,
-  })
-}
+// export const OPTIONS = (req: Request) => {
+//   return Response.json(null, {
+//     headers,
+//   })
+// }
+export const OPTIONS = GET

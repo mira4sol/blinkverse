@@ -33,22 +33,37 @@ export const SendNativeSol = async (
     }
 
     // create an instruction to transfer native SOL from one wallet to another
-    const transferSolInstruction = SystemProgram.transfer({
-      fromPubkey: fromPubkey,
-      toPubkey: toPubkey,
-      lamports: amount * LAMPORTS_PER_SOL,
-    })
+    // const transferSolInstruction = SystemProgram.transfer({
+    //   fromPubkey: fromPubkey,
+    //   toPubkey: toPubkey,
+    //   lamports: amount * LAMPORTS_PER_SOL,
+    // })
 
     // get the latest blockhash amd block height
-    const { blockhash, lastValidBlockHeight } =
-      await connection.getLatestBlockhash()
+    // const { blockhash, lastValidBlockHeight } =
+    //   await connection.getLatestBlockhash()
 
     // create a legacy transaction
-    const transaction = new Transaction({
-      feePayer: fromPubkey,
-      blockhash,
-      lastValidBlockHeight,
-    }).add(transferSolInstruction)
+    // const transaction = new Transaction({
+    //   feePayer: fromPubkey,
+    //   blockhash,
+    //   lastValidBlockHeight,
+    // }).add(transferSolInstruction)
+
+    const transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey: fromPubkey,
+        toPubkey: toPubkey,
+        lamports: amount * LAMPORTS_PER_SOL,
+      })
+    )
+    transaction.feePayer = fromPubkey
+    transaction.recentBlockhash = (
+      await connection.getLatestBlockhash()
+    ).blockhash
+    transaction.lastValidBlockHeight = (
+      await connection.getLatestBlockhash()
+    ).lastValidBlockHeight
 
     return transaction
   } catch (error: any) {

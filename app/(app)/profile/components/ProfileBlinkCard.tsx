@@ -25,7 +25,8 @@ const ProfileBlinkCard = ({ blink }: Props) => {
     let url = ''
 
     if (type === 'blink') {
-      url = `solana-action:${window?.location?.origin}/api/actions/verse/${blink.id}`
+      url = `${window?.location?.origin}/api/actions/verse/${blink.id}`
+      // url = `solana-action:${window?.location?.origin}/api/actions/verse/${blink.id}`
     } else if (type === 'iframe') {
       url = ``
     } else if (type === 'dscr') {
