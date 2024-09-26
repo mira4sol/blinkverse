@@ -10,6 +10,7 @@ import { getSplTokenAddress, SendSplToken } from '@/lib/spl.helpers'
 import {
   ActionPostRequest,
   ActionPostResponse,
+  ACTIONS_CORS_HEADERS,
   BLOCKCHAIN_IDS,
   createActionHeaders,
   createPostResponse,
@@ -23,6 +24,7 @@ import {
 } from '@solana/web3.js'
 
 const headers = createActionHeaders({
+  headers: { ...ACTIONS_CORS_HEADERS },
   chainId: BLOCKCHAIN_IDS.mainnet,
   actionVersion: '2.1.3',
 })
