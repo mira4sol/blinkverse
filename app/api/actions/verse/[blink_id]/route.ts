@@ -10,7 +10,7 @@ import { getSplTokenAddress, SendSplToken } from '@/lib/spl.helpers'
 import {
   ActionPostRequest,
   ActionPostResponse,
-  ACTIONS_CORS_HEADERS,
+  createActionHeaders,
   createPostResponse,
 } from '@solana/actions'
 import {
@@ -21,7 +21,7 @@ import {
   Transaction,
 } from '@solana/web3.js'
 
-const headers = ACTIONS_CORS_HEADERS
+const headers = createActionHeaders()
 
 export const GET = async (
   req: Request,
@@ -54,7 +54,7 @@ export const GET = async (
 
   console.log('baseHREF', baseHref)
 
-  return generatePaymentBlink({
+  return generatePaymentBlink(headers, {
     title: data.title,
     description: data.description || '',
     icon: data.image_url || '',

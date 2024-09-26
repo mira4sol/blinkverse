@@ -1,4 +1,8 @@
-import { createActionHeaders, type ActionsJson } from '@solana/actions'
+import {
+  ACTIONS_CORS_HEADERS,
+  createActionHeaders,
+  type ActionsJson,
+} from '@solana/actions'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: Request) {
@@ -18,7 +22,7 @@ export async function GET(request: Request) {
   }
 
   return Response.json(payload, {
-    headers: createActionHeaders(),
+    headers: createActionHeaders({ headers: ACTIONS_CORS_HEADERS }),
   })
 }
 

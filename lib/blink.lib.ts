@@ -14,19 +14,22 @@ export const blinkError = (errorMessage: string) => {
   return Response.json(action, { headers: ACTIONS_CORS_HEADERS })
 }
 
-export const generatePaymentBlink = ({
-  title,
-  description,
-  icon,
-  label,
-  baseURL,
-}: {
-  title: string
-  icon: string
-  description: string
-  label: string
-  baseURL: string
-}) => {
+export const generatePaymentBlink = (
+  headers: Record<string, string>,
+  {
+    title,
+    description,
+    icon,
+    label,
+    baseURL,
+  }: {
+    title: string
+    icon: string
+    description: string
+    label: string
+    baseURL: string
+  }
+) => {
   const payload: ActionGetResponse = {
     title,
     icon: icon || `https://www.blinkverse.fun/images/logo.png`,
@@ -60,7 +63,9 @@ export const generatePaymentBlink = ({
     },
   }
 
-  return Response.json(payload, { headers: ACTIONS_CORS_HEADERS })
+  return Response.json(payload, {
+    headers,
+  })
 }
 
 export const validatedQueryParams = (requestUrl: URL) => {
