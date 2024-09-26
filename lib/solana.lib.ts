@@ -25,6 +25,9 @@ export const SendNativeSol = async (
 
     if (amount < minimumBalance) {
       throw new Error(`account may not be rent exempt: ${toPubkey.toBase58()}`)
+      // return Response.json({
+      //   error: `account may not be rent exempt: ${toPubkey.toBase58()}`,
+      // })
     }
 
     // create an instruction to transfer native SOL from one wallet to another
