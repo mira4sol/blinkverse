@@ -19,6 +19,21 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: 'BlinkVerse',
   description: 'Powering Blink Creation',
+  openGraph: {
+    locale: 'locale',
+    siteName: 'BlinkVerse',
+    type: 'website',
+    images: { url: `https://www.blinkverse.fun/images/logo.png` },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@send_blink',
+    site: '@send_blink',
+    title: 'BlinkVerse',
+    description: 'Powering Solana Social Interactions',
+    images: `https://www.blinkverse.fun/images/logo.png`,
+  },
+  keywords: ['e-commerce', 'ecommerce', 'sp', 'service provider'],
 }
 
 export default function RootLayout({
