@@ -11,6 +11,7 @@
   "dependencies": {
     "@dialectlabs/blinks": "^0.9.4",
     "@hookform/resolvers": "^3.9.0",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
     "@radix-ui/react-avatar": "^1.1.0",
