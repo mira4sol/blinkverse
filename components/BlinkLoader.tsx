@@ -16,7 +16,7 @@ export const BlinkLoader = ({ url, adapter }: Props) => {
       {action ? (
         <Blink
           action={action}
-          stylePreset='x-dark'
+          // stylePreset='x-dark'
           websiteUrl={new URL(url).hostname}
         />
       ) : (
