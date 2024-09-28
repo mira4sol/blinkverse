@@ -90,7 +90,7 @@ const ProfileDetails = () => {
       <div className='rounded-lg p-5'>
         <div className='flex justify-between items-start mb-6'>
           <div>
-            <h1 className='text-3xl font-bold mb-2'>Meta</h1>
+            <h1 className='text-3xl font-bold mb-2'>Verse</h1>
             {localUser?.name && (
               <p className='text-indigo-300'>@{localUser?.name || ''}</p>
             )}
