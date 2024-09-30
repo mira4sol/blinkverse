@@ -7,7 +7,7 @@ interface Props extends ReactChildrenProps {
 
 const AppLayout = ({ children, className }: Props) => {
   return (
-    <div>
+    <div className='bg-[#141414]'>
       <AppBar />
 
       <section className={`mt-10 px-10 ${className}`}>{children}</section>
