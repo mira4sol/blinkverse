@@ -89,3 +89,7 @@
     column-count: 1;
   }
 }
+
+.flip-image {
+  transform: scaleX(-1);
+}
