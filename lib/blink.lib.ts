@@ -4,7 +4,7 @@ import { PublicKey } from '@solana/web3.js'
 export const blinkError = (errorMessage: string) => {
   const action: ActionGetResponse = {
     title: 'An error occur',
-    icon: `https://www.blinkverse.fun/images/logo.png`,
+    icon: `https://www.blinkverse.fun/images/blink_img.png`,
     description: ``,
     label: '',
     type: 'action',
@@ -32,14 +32,15 @@ export const generatePaymentBlink = (
 ) => {
   const payload: ActionGetResponse = {
     title,
-    icon: icon || `https://www.blinkverse.fun/images/logo.png`,
+    // icon: icon || `https://www.blinkverse.fun/images/blink_img.png`,
+    icon: icon || `http://localhost:3000/images/blink_img.png`,
     description,
     label,
     type: 'action',
     links: {
       actions: [
         {
-          label: label || 'Send 😉',
+          label: label || `Send 😉`,
           href: `${baseURL}?amount={amount}&token={token}`,
           parameters: [
             {

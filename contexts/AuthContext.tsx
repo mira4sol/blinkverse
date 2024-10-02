@@ -38,7 +38,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
   const [user, setUser] = useState(CookiesService.get(COOKIE_USER_DATA_KEY))
   const [isLoading, setIsLoading] = useState(true)
 
-  const publicRoutes = ['/', '/hub']
+  const publicRoutes = ['/', '/hub', '/hub/donations', '/hub/nft']
 
   useEffect(() => {
     const initAuth = async () => {
@@ -63,7 +63,7 @@ export default function AuthContextProvider({ children }: ReactChildrenProps) {
     if (wallet) {
       wallet.adapter.on('disconnect', logout)
     }
-  }, [connected, publicKey])
+  }, [connected, publicKey, wallet])
 
   useEffect(() => {
     if (!isLoading && !isLoggedIn) {

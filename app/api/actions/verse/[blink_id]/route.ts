@@ -117,14 +117,6 @@ export const POST = async (
         toPubKey: toPubkey,
         mintAddress: new PublicKey(getSplTokenAddress(token) || ''),
       })
-      // await jupSwap({ amount, userPubKey: account })
-      // transaction = await sendSPLToken(connection, {
-      //   amount,
-      //   toPubKey: toPubkey,
-      //   fromPubKey: account,
-      //   mintAddress: new PublicKey(getSplTokenAddress(token)!),
-      // })
-      // const signedTransaction = await signTr
     }
 
     const payload: ActionPostResponse = await createPostResponse({
