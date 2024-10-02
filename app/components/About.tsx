@@ -3,11 +3,11 @@ import blinks from "@/public/images/about-blink.png";
 import funding from "@/public/images/about-funding.png";
 import donations from "@/public/images/about-donations.png";
 import token from "@/public/images/about-token.png";
-import sales from '@/public/images/about-sales.png'
-import social from '@/public/images/about-social.png'
+import sales from "@/public/images/about-sales.png";
+import social from "@/public/images/about-social.png";
 
 import { Monda } from "next/font/google";
-const monda = Monda({weight: ['400', '700'], subsets: ['latin']})
+const monda = Monda({ weight: ["400", "700"], subsets: ["latin"] });
 
 const AboutContent: {
   heading: string;
@@ -17,7 +17,7 @@ const AboutContent: {
   imageSize: string;
   objectFit?: "contain" | "cover";
   gridSpan?: string;
-  position?: 'row' | 'col'
+  position?: "row" | "col";
 }[] = [
   {
     heading: "Create Blinks",
@@ -30,7 +30,8 @@ const AboutContent: {
     objectPosition: "60%",
     imageSize: "h-72",
     gridSpan: "row-span-2 col-span-2",
-    position: 'col'
+    position: "col",
+    objectFit: "contain",
   },
   {
     heading: "Crowd Funding",
@@ -43,8 +44,8 @@ const AboutContent: {
     objectPosition: "right",
     imageSize: "h-36 aspect-[1/1]",
     objectFit: "contain",
-    position: 'col',
-    gridSpan: 'col-span-2'
+    position: "col",
+    gridSpan: "col-span-2",
   },
   {
     heading: "Donations",
@@ -54,9 +55,11 @@ const AboutContent: {
       </>
     ),
     image: donations.src,
-    imageSize: "aspect-[1.3/1] h-52 flip-image",
-    position: 'col',
-    gridSpan: 'col-span-2'
+    imageSize: "aspect-[0.4/2] h-32 flip-image",
+    position: "col",
+    gridSpan: "col-span-2",
+    objectFit: "contain",
+    objectPosition: "left",
   },
   {
     heading: "Token Swaps",
@@ -66,34 +69,47 @@ const AboutContent: {
       </>
     ),
     image: token.src,
-    imageSize: "h-full aspect-[1/1]",
+    imageSize: "lg:h-full aspect-[2/1] w-32 md:w-auto h-2/4",
     gridSpan: "col-span-4",
-    objectFit: 'cover',
-    position: 'row'
+    objectFit: "cover",
+    position: "row",
   },
   {
-    heading: 'Nft Sales',
-    body: <>Streamline NFT sales and <br/> marketplace interactions</>,
+    heading: "Nft Sales",
+    body: (
+      <>
+        Streamline NFT sales and <br /> marketplace interactions
+      </>
+    ),
     image: sales.src,
-    imageSize: 'w-full max-h-32 aspect-[2/1]',
-    position: 'col',
-    gridSpan: 'col-span-3',
-    objectFit: 'cover',
-    objectPosition: '50% 70%'
-  },{
-    heading: 'Social Integration',
-    body: <>Enhance social media with an <br/>on-chain actions</>,
+    imageSize: "w-full max-h-32 aspect-[2/1]",
+    position: "col",
+    gridSpan: "col-span-3",
+    objectFit: "cover",
+    objectPosition: "50% 70%",
+  },
+  {
+    heading: "Social Integration",
+    body: (
+      <>
+        Enhance social media with an <br />
+        on-chain actions
+      </>
+    ),
     image: social.src,
-    imageSize: 'h-full aspect-[1/1]',
-    position: 'row',
-    objectFit: 'cover',
-    gridSpan: 'col-span-3',
-  }
+    imageSize: "lg:h-full aspect-[1/1] h-2/4",
+    position: "row",
+    objectFit: "cover",
+    gridSpan: "col-span-3",
+  },
 ];
 
 const About = () => {
   return (
-    <section className="text-white px-5 py-10 w-full flex items-center flex-col gap-6">
+    <section
+      id="about"
+      className="text-white px-5 py-10 w-full flex items-center flex-col gap-6"
+    >
       <div className="flex items-center gap-1 justify-center">
         <h2 className={monda.className + " text-2xl"}>ABOUT BLINKVERSE</h2>
         <h3 className="text-primary-color">| What we are all about</h3>
@@ -103,7 +119,7 @@ const About = () => {
         complex blockchain operations into user-friendly "Blinks". We're making
         web3 accessbible to everyone in the Solana ecosystem.
       </p>
-      <div className="grid gap-3 grid-cols-6 grid-rows-3 w-5/6 min-w-[300px] max-w-[1300px]">
+      <div className="md:grid flex flex-col gap-3 md:grid-cols-6 md:grid-rows-3 md:w-5/6 min-w-[300px] md:max-w-[1300px] max-w-[600px]">
         {AboutContent.map((item) => (
           <AboutCard {...item} key={item.heading} />
         ))}
@@ -150,19 +166,19 @@ const AboutCard = ({
           objectFit={objectFit}
         />
       </div>
-      <p className="px-3">{body}</p>
+      <p className="px-3 opacity-80 text-sm">{body}</p>
     </div>
   ) : (
     <div
       className={
-        "flex items-center justify-between border border-primary-color bg-black rounded-md py-5 " +
+        "flex md:flex-row flex-col items-center justify-between border border-primary-color bg-black rounded-md py-5 " +
         gridSpan
       }
     >
       <span className="h-full flex flex-col justify-between">
         <h4 className="pl-3">{heading}</h4>
 
-        <p className="px-3">{body}</p>
+        <p className="px-3 opacity-80 text-sm">{body}</p>
       </span>
       <div className={"relative " + imageSize}>
         <Image
