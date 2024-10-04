@@ -66,16 +66,16 @@ const Content = () => {
     <section
       className={
         monda.className +
-        " px-5 w-full h-full text-white bg-[#110F1FA3] relative flex flex-col justify-between overflow-hidden gap-5"
+        " w-full h-full text-white bg-[#110F1FA3] relative flex flex-col justify-between overflow-hidden gap-5"
       }
     >
-      <div className="w-full h-full relative">
+      <div className="px-5 w-full h-full relative">
         <h1 className="tracking-[.7em] mt-10 text-xl bg-gradient-to-r from-[#c498fe] to-[#4e3272] text-transparent bg-clip-text text-center">
           BLINKVERSE
         </h1>
         <Swiper
           loop
-          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          autoplay={{ delay: 10000, disableOnInteraction: false }}
           modules={[Autoplay]}
           className="w-full h-full"
         >
