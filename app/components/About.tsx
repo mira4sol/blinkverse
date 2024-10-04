@@ -108,11 +108,12 @@ const About = () => {
   return (
     <section
       id="about"
-      className="text-white px-5 py-10 w-full flex items-center flex-col gap-6"
+      className="text-white md:px-36 sm:px-20 px-5 sm:py-10 py-5 w-full flex items-center flex-col gap-6"
     >
-      <div className="flex items-center gap-1 justify-center">
-        <h2 className={monda.className + " text-2xl"}>ABOUT BLINKVERSE</h2>
-        <h3 className="text-primary-color">| What we are all about</h3>
+      <div className="flex flex-col sm:flex-row items-center gap-1 justify-center">
+        <h2 className={monda.className + " lg:text-2xl md:text-xl text-lg"}>ABOUT BLINKVERSE</h2>
+        <span className="text-primary-color sm:block hidden"> | </span>
+        <h3 className="sm:text-primary-color text-gray-300 lg:text-base md:text-sm text-xs">What we are all about</h3>
       </div>
       <p className="w-1/2 min-w-[300px] max-w-[500px] text-center text-sm opacity-80">
         BlinkVerse is built on Solana's Blink protocol by Dialect transforming

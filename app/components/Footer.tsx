@@ -13,26 +13,26 @@ const socials: string[] = [X, Discord, Telegram, Instagram];
 const Footer = () => {
   return (
     <section className="flex flex-col gap-28 text-white">
-      <div className="grid grid-cols-7 items-center px-12 py-32">
+      <div className="sm:grid sm:grid-cols-7 items-center md:px-12 sm:py-32 py-20 sm:px-6 flex sm:flex-col flex-col-reverse gap-4 sm:gap-0">
         <div className="col-span-6 flex items-center justify-center w-full">
           <Nav />
         </div>
-        <Link href='#home' className="text-primary-color flex items-center gap-1 ml-auto w-fit">
+        <Link href='#home' className="text-primary-color flex items-center gap-1 sm:ml-auto w-fit sm:text-base text-xs">
           Back to Top <ChevronUp />
         </Link>
       </div>
-      <div className="px-10 py-6 flex items-center justify-between bg-secondary-color">
-        <span className="flex items-center gap-1">
-          <h2 className="text-2xl text-primary-color">BLINKVERSE</h2>
+      <div className="sm:px-10 px-5 py-6 flex sm:flex-row flex-col-reverse items-center sm:justify-between gap-6 sm:gap-0 bg-secondary-color">
+        <span className="flex items-center gap-1 sm:text-primary-color text-center text-gray-300">
+          <h2 className="sm:text-2xl text-xl">BLINKVERSE</h2>
           <p>
-            <span className='text-primary-color text-sm'> | </span>Powered by Solana Blink
+            <span className='sm:text-sm text-xs'> | </span>Powered by Solana Blink
           </p>
         </span>
         <div className="flex items-center gap-2">
           {socials.map((item, index) => (
             <>
               <SocialIcon icon={item} key={item} /> 
-              {socials.length - 1  !== index && <span className="text-primary-color h-5/6"> | </span>}
+              {socials.length - 1  !== index && <span className="sm:text-primary-color text-gray-300 h-5/6"> | </span>}
             </>
           ))}
         </div>
@@ -45,7 +45,7 @@ export default Footer;
 
 const SocialIcon = ({ icon }: { icon: string }) => {
   return (
-    <div className="border border-primary-color rounded-lg p-3">
+    <div className="border sm:border-primary-color border-gray-300 rounded-lg p-3">
       <Image src={icon} alt="" />
     </div>
   );
