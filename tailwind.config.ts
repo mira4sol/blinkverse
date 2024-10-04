@@ -63,7 +63,8 @@ const config: Config = {
       fontFamily: {
         // poppins: '--font-poppins',
         poppins: 'Poppins',
-        monda: '--font-monda',
+        // monda: '--font-monda',
+        monda: 'Monda',
       },
     },
   },

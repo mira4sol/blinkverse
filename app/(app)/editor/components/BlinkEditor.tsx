@@ -123,12 +123,14 @@ const BlinkEditor = () => {
       <div className='flex-1'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-            <Card>
+            <Card className='bg-transparent'>
               <CardHeader>
-                <CardTitle>Blink Editor</CardTitle>
+                <CardTitle className='text-[20px] text-[#F0F0F0] font-monda]'>
+                  Blink Editor
+                </CardTitle>
               </CardHeader>
 
-              <CardContent>
+              <CardContent className='grid gap-[24px]'>
                 {/* Title field */}
                 <FormField
                   control={form.control}
@@ -137,7 +139,11 @@ const BlinkEditor = () => {
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter title' {...field} />
+                        <Input
+                          placeholder='Enter title'
+                          {...field}
+                          className='bg-[#1F212A] border-none'
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

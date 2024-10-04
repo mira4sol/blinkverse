@@ -11,6 +11,7 @@
   "dependencies": {
     "@dialectlabs/blinks": "^0.9.4",
     "@hookform/resolvers": "^3.9.0",
+    "@lightprotocol/stateless.js": "^0.13.0",
     "@metaplex-foundation/mpl-bubblegum": "^4.2.1",
     "@metaplex-foundation/mpl-inscription": "^0.8.1",
     "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
