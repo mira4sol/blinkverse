@@ -5,7 +5,7 @@ import {
   Transaction,
 } from '@solana/web3.js'
 
-export const SendNativeSol = async (
+export const sendNativeSol = async (
   connection: Connection,
   {
     amount,

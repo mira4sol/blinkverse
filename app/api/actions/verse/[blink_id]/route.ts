@@ -5,7 +5,7 @@ import {
   validatedQueryParams,
 } from '@/lib/blink.lib'
 import { BlinkService } from '@/lib/services/blink.service'
-import { SendNativeSol } from '@/lib/solana.lib'
+import { sendNativeSol } from '@/lib/solana.lib'
 import { getSplTokenAddress, SendSplToken } from '@/lib/spl.helpers'
 import {
   ActionPostRequest,
@@ -104,7 +104,7 @@ export const POST = async (
     let transaction: Transaction = new Transaction()
 
     if (token === 'sol') {
-      transaction = await SendNativeSol(connection, {
+      transaction = await sendNativeSol(connection, {
         amount: amount * LAMPORTS_PER_SOL,
         toPubkey,
         fromPubkey: account,
@@ -117,14 +117,6 @@ export const POST = async (
         toPubKey: toPubkey,
         mintAddress: new PublicKey(getSplTokenAddress(token) || ''),
       })
-      // await jupSwap({ amount, userPubKey: account })
-      // transaction = await sendSPLToken(connection, {
-      //   amount,
-      //   toPubKey: toPubkey,
-      //   fromPubKey: account,
-      //   mintAddress: new PublicKey(getSplTokenAddress(token)!),
-      // })
-      // const signedTransaction = await signTr
     }
 
     const payload: ActionPostResponse = await createPostResponse({

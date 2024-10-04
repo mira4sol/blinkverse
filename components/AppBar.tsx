@@ -1,10 +1,12 @@
 'use client'
 
-import { useAuth } from '@/contexts/AuthContext'
-import { Edit, LogOut, User } from 'lucide-react'
+import { CaretDownIcon } from '@radix-ui/react-icons'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { CopyIcon, Edit, LogOut, User, Wallet } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { WalletMultiButton } from './dynamic/WalletAdapters'
 import { Button } from './ui/button'
 import {
   DropdownMenu,
@@ -17,47 +19,53 @@ import {
 } from './ui/dropdown-menu'
 
 const AppBar = () => {
-  const { isLoggedIn } = useAuth()
-
-  const [visible, setVisible] = useState(true)
+  const { connected, publicKey, disconnect, wallet } = useWallet()
+  const { setVisible } = useWalletModal()
+  const [slicedPublicKey, setSlicedPublicKey] = useState('')
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setVisible((v) => !v)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
+    if (!publicKey) return setSlicedPublicKey('')
+
+    const base58 = publicKey.toBase58()
+    setSlicedPublicKey(base58.slice(0, 4) + '..' + base58.slice(-4))
+  }, [publicKey])
 
   return (
-    <header className='bg-gradient-to-br from-purple-900 to-indigo-900 px-4 md:px-10 py-4'>
+    <header className='pt-[48px] pb-[24px]'>
       <nav className='flex flex-1 items-center justify-between'>
-        <Link href={'/hub'}>
-          <p className='text-white font-[family-name:var(--font-geist-mono)]'>
-            <span
-              className={`${
-                visible ? 'opacity-100' : 'opacity-0'
-              } transition-opacity duration-300`}
-            >
-              Blink
-            </span>
-            Verse
-          </p>
-        </Link>
+        <div></div>
 
         <div className='flex items-center gap-3'>
-          <WalletMultiButton style={{ background: '0 0% 9%' }} />
+          {/* <WalletMultiButton style={{ background: '#B073FF', height: 40 }} /> */}
 
-          {isLoggedIn && (
+          {!connected && (
+            <Button
+              className='bg-[#B073FF] hover:bg-[#B073FF] hover:bg-opacity-50 text-white font-bold text-[16px] h-[40px]'
+              onClick={() => setVisible(true)}
+            >
+              Connect Wallet
+            </Button>
+          )}
+
+          {connected && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className='bg-[#512da8] gap-1 py-6'>
-                  <User className='w-4 h-4' />{' '}
-                  <span className='hidden md:block'>Account</span>
+                <Button className='bg-[#B073FF] hover:bg-[#B073FF] hover:bg-opacity-50 text-white font-bold text-[16px] h-[40px] gap-[8px]'>
+                  <Image
+                    src={wallet?.adapter.icon || ''}
+                    height={24}
+                    width={24}
+                    alt='wallet icon'
+                  />
+                  {slicedPublicKey}
+                  <CaretDownIcon className='h-[16px] w-[16px]' />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className='w-56'>
+              <DropdownMenuContent className='w-48 mt-1 bg-[#2c2d30]'>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+
+                <DropdownMenuSeparator className='bg-neutral-600' />
+
                 <DropdownMenuGroup>
                   <Link href={'/profile'}>
                     <DropdownMenuItem>
@@ -71,7 +79,24 @@ const AppBar = () => {
                       <span>Create Blink</span>
                     </DropdownMenuItem>
                   </Link>
-                  <DropdownMenuItem>
+
+                  <DropdownMenuSeparator className='bg-neutral-600' />
+
+                  <DropdownMenuItem
+                    onClick={() => {
+                      navigator.clipboard.writeText(publicKey?.toBase58() || '')
+                    }}
+                  >
+                    <CopyIcon className='mr-2 h-4 w-4' />
+                    <span>Copy Address</span>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem onClick={() => setVisible(true)}>
+                    <Wallet className='mr-2 h-4 w-4' />
+                    <span>Change Wallet</span>
+                  </DropdownMenuItem>
+
+                  <DropdownMenuItem onClick={() => disconnect()}>
                     <LogOut className='mr-2 h-4 w-4' />
                     <span>Disconnect</span>
                   </DropdownMenuItem>

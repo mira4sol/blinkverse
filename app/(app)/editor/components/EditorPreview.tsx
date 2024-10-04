@@ -14,7 +14,7 @@ const EditorPreview = ({ title, description, image_url, label }: Props) => {
     <Card className='flex-1'>
       <CardHeader>
         <img
-          src={image_url || '/images/logo.png'}
+          src={image_url || '/images/blink_img.png'}
           // height={500}
           // width={500}
           className='w-full h-full'

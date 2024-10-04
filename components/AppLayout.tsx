@@ -1,5 +1,6 @@
 import { ReactChildrenProps } from '@/interfaces'
 import AppBar from './AppBar'
+import SideBar from './SideBar'
 
 interface Props extends ReactChildrenProps {
   className?: string
@@ -7,10 +8,14 @@ interface Props extends ReactChildrenProps {
 
 const AppLayout = ({ children, className }: Props) => {
   return (
-    <div className='bg-[#141414]'>
-      <AppBar />
+    <div className='bg-[#141414] dark:text-[#F0F0F0] flex min-h-screen gap-5'>
+      <SideBar />
 
-      <section className={`mt-10 px-10 ${className}`}>{children}</section>
+      <div className='flex-1 pr-20'>
+        <AppBar />
+
+        <section className={`mt-2 ${className}`}>{children}</section>
+      </div>
     </div>
   )
 }

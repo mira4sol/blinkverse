@@ -55,7 +55,7 @@ const BlinkList = () => {
       )}
 
       {isRegistryLoaded ? (
-        <div className='mt-3 columns-1 md:columns-2 lg:columns-3 gap-5 w-full min-h-screen items-start'>
+        <div className='mt-3 columns-1 md:columns-2 lg:columns-2 gap-5 w-full min-h-screen items-start'>
           {blinks?.map((item, i) => (
             <BlinkLoader key={i} url={computeUrl(item?.id)} adapter={adapter} />
           ))}
