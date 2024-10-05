@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import 'swiper/css'
 import { Autoplay } from 'swiper/modules'
 
@@ -17,30 +17,31 @@ import Link from 'next/link'
 
 const monda = Monda({ weight: ['400', '700'], subsets: ['latin'] })
 
-const content: { icon: string; heading: string; body: React.JSX | string }[] = [
-  {
-    icon: Launch,
-    heading: 'Launch the app',
-    body: (
-      <>
-        Go ahead and click on the{' '}
-        <span className='text-primary-color'>Launch App</span> button and it
-        will direct you to the{' '}
-        <span className='text-primary-color'>Blink Editor</span> dashboard
-      </>
-    ),
-  },
-  {
-    icon: Editor,
-    heading: 'Use blink editor',
-    body: 'Input all the necessary information for your BlinkVerse card and select the category you want',
-  },
-  {
-    icon: Preview,
-    heading: 'Preview and create',
-    body: "Preview your card and create the Blink if you're satisfied with how it looks. Now you can share that Blink!",
-  },
-]
+const content: { icon: string; heading: string; body: JSX.Element | string }[] =
+  [
+    {
+      icon: Launch,
+      heading: 'Launch the app',
+      body: (
+        <>
+          Go ahead and click on the{' '}
+          <span className='text-primary-color'>Launch App</span> button and it
+          will direct you to the{' '}
+          <span className='text-primary-color'>Blink Editor</span> dashboard
+        </>
+      ),
+    },
+    {
+      icon: Editor,
+      heading: 'Use blink editor',
+      body: 'Input all the necessary information for your BlinkVerse card and select the category you want',
+    },
+    {
+      icon: Preview,
+      heading: 'Preview and create',
+      body: "Preview your card and create the Blink if you're satisfied with how it looks. Now you can share that Blink!",
+    },
+  ]
 
 const HowToUse = () => {
   const [isMobile, setIsMobile] = useState(false)
@@ -148,7 +149,7 @@ const HowToUseCard = ({
 }: {
   icon: string
   heading: string
-  body: React.JSX | string
+  body: JSX.Element | string
   purple?: boolean
 }) => {
   const style = purple

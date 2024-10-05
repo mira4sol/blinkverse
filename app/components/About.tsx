@@ -11,7 +11,7 @@ const monda = Monda({ weight: ['400', '700'], subsets: ['latin'] })
 
 const AboutContent: {
   heading: string
-  body: React.JSX
+  body: JSX.Element
   image: string
   objectPosition?: string
   imageSize: string
@@ -146,13 +146,13 @@ const AboutCard = ({
   position = 'row',
 }: {
   heading: string
-  body: string
+  body: JSX.Element
   image: string
   objectPosition?: string
   imageSize: string
   objectFit?: 'contain' | 'cover'
   gridSpan?: string
-  position: 'col' | 'row'
+  position?: 'col' | 'row'
 }) => {
   return position === 'col' ? (
     <div
