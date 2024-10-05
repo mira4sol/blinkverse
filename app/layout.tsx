@@ -1,9 +1,12 @@
 import { Toaster } from '@/components/ui/toaster'
 import AuthContextProvider from '@/contexts/AuthContext'
 import { WalletAdapterProvider } from '@/contexts/WalletProvider'
+import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata } from 'next'
 import { Monda, Poppins } from 'next/font/google'
 import localFont from 'next/font/local'
+
+import { ENV } from '@/lib/constants/env.constant'
 import './globals.css'
 
 const geistSans = localFont({
@@ -94,6 +97,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <GoogleTagManager gtmId={ENV.GOOGLE_ANALYTICS || ''} />
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${m.className} ${p.className} dark antialiased`}
         suppressHydrationWarning
