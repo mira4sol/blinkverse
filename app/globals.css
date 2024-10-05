@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -88,4 +89,8 @@
   .masonry-layout {
     column-count: 1;
   }
+}
+
+.flip-image {
+  transform: scaleX(-1);
 }

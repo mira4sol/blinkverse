@@ -123,12 +123,14 @@ const BlinkEditor = () => {
       <div className='flex-1'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-            <Card>
+            <Card className='bg-transparent'>
               <CardHeader>
-                <CardTitle>Blink Editor</CardTitle>
+                <CardTitle className='text-[20px] text-[#F0F0F0] font-monda'>
+                  Blink Editor
+                </CardTitle>
               </CardHeader>
 
-              <CardContent>
+              <CardContent className='grid gap-[24px]'>
                 {/* Title field */}
                 <FormField
                   control={form.control}
@@ -137,7 +139,11 @@ const BlinkEditor = () => {
                     <FormItem>
                       <FormLabel>Title</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter title' {...field} />
+                        <Input
+                          placeholder='Enter title'
+                          {...field}
+                          className='bg-[#1F212A] border-none'
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -153,7 +159,11 @@ const BlinkEditor = () => {
                     <FormItem>
                       <FormLabel>Image URL</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter title' {...field} />
+                        <Input
+                          placeholder='Enter title'
+                          {...field}
+                          className='bg-[#1F212A] border-none'
+                        />
                       </FormControl>
                       <FormDescription>[optional]</FormDescription>
                       <FormMessage />
@@ -172,7 +182,7 @@ const BlinkEditor = () => {
                       <FormControl>
                         <Textarea
                           placeholder='Tell us about your blink'
-                          className='resize-none'
+                          className='bg-[#1F212A] border-none resize-none'
                           {...field}
                         />
                       </FormControl>
@@ -195,13 +205,17 @@ const BlinkEditor = () => {
                         defaultValue={field.value}
                       >
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className='bg-[#1F212A] border-none resize-none'>
                             <SelectValue placeholder='Select blink category' />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className='bg-[#1F212A]'>
                           {categories?.map((item) => (
-                            <SelectItem key={item?.id} value={item?.id}>
+                            <SelectItem
+                              key={item?.id}
+                              value={item?.id}
+                              className='bg-[#1F212A] border-none resize-none'
+                            >
                               {item?.name}
                             </SelectItem>
                           ))}
@@ -222,7 +236,11 @@ const BlinkEditor = () => {
                     <FormItem>
                       <FormLabel>Button Label</FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter button label' {...field} />
+                        <Input
+                          placeholder='Enter button label'
+                          {...field}
+                          className='bg-[#1F212A] border-none'
+                        />
                       </FormControl>
                       <FormDescription>Blink button display.</FormDescription>
                       <FormMessage />
@@ -237,7 +255,10 @@ const BlinkEditor = () => {
                 <Link href={'/profile'}>
                   <Button variant={'destructive'}>Cancel</Button>
                 </Link>
-                <Button> {createBlinkLoader && <LoadingIcon />} Create</Button>
+                <Button className='font-poppins font-medium bg-[#B073FF] hover:bg-[#B073FF] hover:bg-opacity-50 text-white'>
+                  {' '}
+                  {createBlinkLoader && <LoadingIcon />} Create Blink
+                </Button>
               </CardFooter>
             </Card>
           </form>
