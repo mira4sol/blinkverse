@@ -21,7 +21,6 @@ const Nav = () => {
             {capitalizeFirst(item)}
           </Link>
         ))}
-        <li>Create</li>
       </ul>
     </nav>
   );
