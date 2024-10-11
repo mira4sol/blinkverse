@@ -18,6 +18,11 @@ export interface BlinkInterface {
   label?: string
   pub_key: string
 
+  opened_count: number
+  clicked_count: number
+  tx_successful_count: number
+  tx_failed_count: number
+
   created_at: Date
   updated_at?: Date
 

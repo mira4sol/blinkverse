@@ -101,14 +101,14 @@ const ProfileDetails = () => {
                 ? form.handleSubmit(onSubmit)
                 : () => setIsEditing(!isEditing)
             }
-            className='bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg flex items-center transition-colors duration-300'
+            className='bg-purple-600 hover:bg-purple-700 text-white px-2 py-2 rounded-full flex items-center transition-colors duration-300'
           >
             {loading ? (
-              <LoadingIcon className='w-4 h-4 mr-2' />
+              <LoadingIcon className='w-4 h-4' />
             ) : (
-              <Pen className='w-4 h-4 mr-2' />
+              <Pen className='w-4 h-4' />
             )}{' '}
-            {isEditing ? 'Save Profile' : 'Edit Profile'}
+            {isEditing ? '' : ''}
           </button>
         </div>
         {isEditing ? (

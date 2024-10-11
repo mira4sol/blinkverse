@@ -10,7 +10,7 @@ import ProfileNFTTab from './ProfileNFTTab'
 const ProfileView = () => {
   return (
     <AppLayout className='flex flex-col lg:flex-row gap-10'>
-      <div className='flex-[0.3] bg-gradient-to-br from-purple-900 to-indigo-900 text-white h-fit'>
+      <div className='flex-[0.3] bg-transparent border border-[#3B2655] text-white h-fit'>
         <ProfileDetails />
       </div>
 

@@ -44,7 +44,7 @@ import EditorPreview from './EditorPreview'
 const formSchema = z.object({
   title: z.string().min(3).max(20),
   category_id: z.string().min(3),
-  image_url: z.string().min(3).optional(),
+  image_url: z.string().optional(),
   description: z.string().min(5).max(100),
   label: z.string().min(0).max(20),
 })

@@ -1,9 +1,4 @@
-import {
-  ActionAdapter,
-  ActionLayout,
-  Blink,
-  useAction,
-} from '@dialectlabs/blinks'
+import { ActionAdapter, Blink, useAction } from '@dialectlabs/blinks'
 
 import '@dialectlabs/blinks/index.css'
 import { Skeleton } from './ui/skeleton'
@@ -15,8 +10,6 @@ interface Props {
 
 export const BlinkLoader = ({ url, adapter }: Props) => {
   const { action } = useAction({ url: url, adapter })
-
-  const a = {} as typeof ActionLayout
 
   return (
     <div className='w-full mb-4'>

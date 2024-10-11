@@ -60,6 +60,9 @@ export const GET = async (
 
   console.log('baseHREF', baseHref)
 
+  // Add click count update
+  await BlinkService.incrementBlinkOpenedCount(blink_id)
+
   return generatePaymentBlink(headers, {
     title: data.title,
     description: data.description || '',
@@ -72,15 +75,21 @@ export const GET = async (
 // export const OPTIONS = GET
 
 export const POST = async (
-  req: Request
-  // { params }: { params: { blink_id: string } }
+  req: Request,
+  { params }: { params: { blink_id: string } }
 ) => {
   console.log('I ran', new Date(Date.now()).toLocaleTimeString())
   const requestUrl = new URL(req.url)
-  // const { blink_id } = params
+  const blink_id = params.blink_id.split('&')[0]
+
+  // console.log('blink_id', blink_id)
+
   const { amount, toPubkey, token } = validatedQueryParams(requestUrl)
 
   console.log('amount', amount, 'toPubkey', toPubkey.toBase58(), 'token', token)
+
+  // increment btn clicked
+  await BlinkService.incrementBlinkClickedCount(blink_id)
 
   try {
     const body: ActionPostRequest = await req.json()
@@ -119,6 +128,8 @@ export const POST = async (
       })
     }
 
+    await BlinkService.incrementBlinkTxSuccessfulCount(blink_id)
+
     const payload: ActionPostResponse = await createPostResponse({
       fields: {
         transaction: transaction,
@@ -131,7 +142,8 @@ export const POST = async (
     })
   } catch (error: any) {
     console.log(error)
-    // return blinkError(error.message || 'unknown error occurred')
+    // Add transaction failure tracking
+    await BlinkService.incrementBlinkTxFailedCount(blink_id)
     return Response.json({
       error: error.message || 'An unknown error occurred',
     })

@@ -34,6 +34,10 @@ const ProfileBlinksLists = () => {
     setBlinks(data)
   }
 
+  const deleteBlink = (blink_id: string) => {
+    setBlinks(blinks.filter((blink) => blink.id !== blink_id))
+  }
+
   useEffect(() => {
     if (user) fetchBlinks().finally(() => setBlinksLoading(false))
   }, [user])
@@ -60,7 +64,11 @@ const ProfileBlinksLists = () => {
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           {blinks.map((blink) => (
-            <ProfileBlinkCard key={blink.id} blink={blink} />
+            <ProfileBlinkCard
+              key={blink.id}
+              blink={blink}
+              deleteBlink={deleteBlink}
+            />
           ))}
         </div>
 
