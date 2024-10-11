@@ -34,6 +34,10 @@ const ProfileBlinksLists = () => {
     setBlinks(data)
   }
 
+  const deleteBlink = (blink_id: string) => {
+    setBlinks(blinks.filter((blink) => blink.id !== blink_id))
+  }
+
   useEffect(() => {
     if (user) fetchBlinks().finally(() => setBlinksLoading(false))
   }, [user])
@@ -44,7 +48,7 @@ const ProfileBlinksLists = () => {
         <h2 className='text-2xl font-bold'>Blinks</h2>
 
         <Link href={'/editor'}>
-          <Button className='bg-purple-600 hover:bg-purple-700'>
+          <Button className='bg-primary-color hover:bg-purple-700 text-white'>
             <Plus className='w-5 h-5 mr-2' />
             Create New Blink
           </Button>
@@ -60,7 +64,11 @@ const ProfileBlinksLists = () => {
 
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           {blinks.map((blink) => (
-            <ProfileBlinkCard key={blink.id} blink={blink} />
+            <ProfileBlinkCard
+              key={blink.id}
+              blink={blink}
+              deleteBlink={deleteBlink}
+            />
           ))}
         </div>
 

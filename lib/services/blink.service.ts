@@ -233,19 +233,163 @@ export class BlinkService {
         .delete()
         .eq('id', id)
 
-      if (error)
+      if (error) {
+        console.log('deleteBlink error', error)
         return apiResponse(
           false,
           error?.message || 'failed to delete blink',
           error
         )
+      }
 
-      return apiResponse(true, 'user details', blink![0])
+      return apiResponse(true, 'blink deleted', undefined)
     } catch (error: any) {
       console.log(`getUser: `, error?.message)
       return apiResponse(
         false,
         'failed to delete blink information',
+        error?.message
+      )
+    }
+  }
+
+  /**
+   * This TypeScript function increments the opened count of a blink using Supabase RPC and returns an
+   * API response based on the outcome.
+   * @param {string} blink_id - The `blink_id` parameter is a string that represents the unique
+   * identifier of a specific blink.
+   * @returns The `incrementBlinkOpenedCount` function returns an API response object with a success
+   * status, a message indicating whether the blink opened count was successfully incremented or not,
+   * and the data returned from the Supabase RPC call.
+   */
+  static async incrementBlinkOpenedCount(blink_id: string) {
+    try {
+      const { data, error } = await supabaseClient.rpc(
+        'increment_opened_blink',
+        {
+          blink_id,
+        }
+      )
+
+      if (error) {
+        console.log(`incrementBlinkOpened:`, error)
+        return apiResponse(
+          false,
+          'Failed to increment blink opened count',
+          error.message
+        )
+      }
+
+      return apiResponse(true, 'Blink opened count incremented', data)
+    } catch (error: any) {
+      console.log(`incrementBlinkOpened:`, error?.message)
+      return apiResponse(
+        false,
+        'Failed to increment blink opened count',
+        error?.message
+      )
+    }
+  }
+
+  /**
+   * Increments the 'clicked' count for a specific blink.
+   * @param {string} blink_id - The ID of the blink to update.
+   * @returns An API response indicating success or failure of the operation.
+   */
+  static async incrementBlinkClickedCount(blink_id: string) {
+    console.log('incrementBlinkClicked', blink_id)
+    try {
+      const { data, error } = await supabaseClient.rpc(
+        'increment_clicked_blink',
+        {
+          blink_id,
+        }
+      )
+
+      if (error) {
+        return apiResponse(
+          false,
+          'Failed to increment blink clicked count',
+          error.message
+        )
+      }
+
+      return apiResponse(true, 'Blink clicked count incremented', data)
+    } catch (error: any) {
+      console.log(`incrementBlinkClicked:`, error?.message)
+      return apiResponse(
+        false,
+        'Failed to increment blink clicked count',
+        error?.message
+      )
+    }
+  }
+
+  /**
+   * Increments the 'tx_successful' count for a specific blink.
+   * @param {string} blink_id - The ID of the blink to update.
+   * @returns An API response indicating success or failure of the operation.
+   */
+  static async incrementBlinkTxSuccessfulCount(blink_id: string) {
+    console.log('incrementBlinkTxSuccessfulCount', blink_id)
+    try {
+      const { data, error } = await supabaseClient.rpc(
+        'increment_tx_successful_blink',
+        {
+          blink_id,
+        }
+      )
+
+      if (error) {
+        console.log(`incrementBlinkTxSuccessful:`, error)
+        return apiResponse(
+          false,
+          'Failed to increment blink tx_successful count',
+          error.message
+        )
+      }
+
+      return apiResponse(true, 'Blink tx_successful count incremented', data)
+    } catch (error: any) {
+      console.log(`incrementBlinkTxSuccessful:`, error?.message)
+      return apiResponse(
+        false,
+        'Failed to increment blink tx_successful count',
+        error?.message
+      )
+    }
+  }
+
+  /**
+   * Increments the 'tx_failed' count for a specific blink.
+   * @param {string} blink_id - The ID of the blink to update.
+   * @returns An API response indicating success or failure of the operation.
+   */
+  static async incrementBlinkTxFailedCount(blink_id: string) {
+    console.log('incrementBlinkTxFailedCount', blink_id)
+    try {
+      const { data, error } = await supabaseClient.rpc(
+        'increment_tx_failed_blink',
+        {
+          blink_id,
+        }
+      )
+
+      if (error) {
+        console.log(`incrementBlinkTxFailed:`, error)
+        return apiResponse(
+          false,
+          'Failed to increment blink tx_failed count',
+          error.message
+        )
+      }
+
+      return apiResponse(true, 'Blink tx_failed count incremented', data)
+    } catch (error: any) {
+      console.log(`incrementBlinkTxFailed:`, error?.message)
+      return apiResponse(
+        false,
+        'Failed to increment blink tx_failed count',
         error?.message
       )
     }

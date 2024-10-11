@@ -1,16 +1,12 @@
-"use client";
+'use client'
 
-import AppLayout from "@/components/AppLayout";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Gift, Globe, Shuffle, Sparkles, Zap } from "lucide-react";
-import AllBlinksTab from "./AllBlinksTab";
-import DonationTab from "./DonationTab";
-import NFTTab from "./NftTab";
+import AppLayout from '@/components/AppLayout'
+import AllBlinksTab from './AllBlinksTab'
 
 const HubView = () => {
   return (
     <AppLayout>
-      <Tabs defaultValue="all" className=" w-full overflow-x">
+      {/* <Tabs defaultValue="all" className=" w-full overflow-x">
         <TabsList
           aria-label="tabs categories"
           className="mx-auto mb-6 flex w-full items-center md:max-w-screen-md xl:mb-10"
@@ -47,9 +43,11 @@ const HubView = () => {
         <TabsContent value="crowdfunding" className="">
           <NFTTab />
         </TabsContent>
-      </Tabs>
-    </AppLayout>
-  );
-};
+      </Tabs> */}
 
-export default HubView;
+      <AllBlinksTab />
+    </AppLayout>
+  )
+}
+
+export default HubView

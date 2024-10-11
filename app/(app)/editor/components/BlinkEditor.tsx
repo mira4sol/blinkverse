@@ -44,8 +44,8 @@ import EditorPreview from './EditorPreview'
 const formSchema = z.object({
   title: z.string().min(3).max(20),
   category_id: z.string().min(3),
-  image_url: z.string().min(3).optional(),
-  description: z.string().min(5).max(100),
+  image_url: z.string().optional(),
+  description: z.string().min(5).max(500),
   label: z.string().min(0).max(20),
 })
 
@@ -62,13 +62,15 @@ const BlinkEditor = () => {
     Loading.circle()
 
     const categories = await CategoryService.getCategories()
-    if (!categories.success)
+    if (!categories.success) {
+      Loading.remove()
       return toast({
         title: 'Unable to fetch categories',
         description: categories?.message,
         variant: 'destructive',
         action: <Button onClick={() => router.refresh()}>Refresh</Button>,
       })
+    }
 
     setCategories(categories.data)
     console.log('Categories', categories.data)
