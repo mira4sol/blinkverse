@@ -16,7 +16,7 @@ const SideBar = () => {
     { label: 'Create', url: '/editor', icon: BrushIcon },
     { label: 'All', url: '/hub', icon: MoneyBagIcon },
     { label: 'Donate', url: '/hub/donations', icon: MoneyBagIcon },
-    { label: 'NFT', url: '/hub/nft', icon: ImageIcon },
+    { label: 'AssetFlash', url: '/hub/nft', icon: ImageIcon },
     // { label: 'Swap', url: '/hub', icon: CoinsSwapIcon },
   ]
 

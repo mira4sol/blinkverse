@@ -48,7 +48,7 @@ const ProfileBlinksLists = () => {
         <h2 className='text-2xl font-bold'>Blinks</h2>
 
         <Link href={'/editor'}>
-          <Button className='bg-purple-600 hover:bg-purple-700'>
+          <Button className='bg-primary-color hover:bg-purple-700 text-white'>
             <Plus className='w-5 h-5 mr-2' />
             Create New Blink
           </Button>

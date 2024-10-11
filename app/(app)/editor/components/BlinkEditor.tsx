@@ -62,13 +62,15 @@ const BlinkEditor = () => {
     Loading.circle()
 
     const categories = await CategoryService.getCategories()
-    if (!categories.success)
+    if (!categories.success) {
+      Loading.remove()
       return toast({
         title: 'Unable to fetch categories',
         description: categories?.message,
         variant: 'destructive',
         action: <Button onClick={() => router.refresh()}>Refresh</Button>,
       })
+    }
 
     setCategories(categories.data)
     console.log('Categories', categories.data)
