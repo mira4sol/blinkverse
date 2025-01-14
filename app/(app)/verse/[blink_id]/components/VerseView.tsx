@@ -32,8 +32,10 @@ const VerseView = ({ blink_id }: Props) => {
   )
 
   const computeUrl = (id: string) => {
+    const queryString = window.location.search
+    console.log('queryString', queryString)
     return typeof window !== undefined
-      ? `solana-action:${window?.location?.origin}/api/actions/verse/${id}`
+      ? `solana-action:${window?.location?.origin}/api/actions/verse/${id}${queryString}`
       : ''
   }
 

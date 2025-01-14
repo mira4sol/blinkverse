@@ -17,6 +17,7 @@ export interface BlinkInterface {
   description?: string
   label?: string
   pub_key: string
+  token_mint?: string
 
   opened_count: number
   clicked_count: number

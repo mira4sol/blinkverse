@@ -139,6 +139,7 @@ export class BlinkService {
     description?: string
     label?: string
     pub_key: string
+    token_mint?: string
   }) {
     try {
       const getBlink = await supabaseClient
@@ -151,6 +152,7 @@ export class BlinkService {
         .eq('description', payload.description)
         .eq('label', payload.label)
         .eq('pub_key', payload.pub_key)
+        .eq('token_mint', payload.token_mint)
 
       if (getBlink.error)
         return apiResponse(

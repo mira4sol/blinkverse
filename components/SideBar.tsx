@@ -1,6 +1,5 @@
 'use client'
 
-import { ImageIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -16,7 +15,7 @@ const SideBar = () => {
     { label: 'Create', url: '/editor', icon: BrushIcon },
     { label: 'All', url: '/hub', icon: MoneyBagIcon },
     { label: 'Donate', url: '/hub/donations', icon: MoneyBagIcon },
-    { label: 'AssetFlash', url: '/hub/nft', icon: ImageIcon },
+    // { label: 'AssetFlash', url: '/hub/nft', icon: ImageIcon },
     // { label: 'Swap', url: '/hub', icon: CoinsSwapIcon },
   ]
 

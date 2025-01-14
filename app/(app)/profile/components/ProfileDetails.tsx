@@ -16,7 +16,7 @@ import { useToast } from '@/hooks/use-toast'
 import { UserInterface } from '@/interfaces'
 import { UserService } from '@/lib/services/user.service'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Pen } from 'lucide-react'
+import { Copy, Pen } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -42,6 +42,18 @@ const formSchema = z.object({
 const ProfileDetails = () => {
   const { user, setUser } = useAuth()
   const { toast } = useToast()
+  const [copied, setCopied] = useState<string>('')
+
+  const copyToClipboard = () => {
+    let url = ''
+
+    url = `${window?.location?.origin}/verse/${localUser?.id}?profile=true`
+
+    navigator.clipboard.writeText(url)
+    setCopied('profile')
+    setTimeout(() => setCopied(''), 2000)
+    toast({ title: 'Copied to clipboard' })
+  }
 
   const [localUser, setLocalUser] = useState<UserInterface>()
   const [isEditing, setIsEditing] = useState(false)
@@ -158,12 +170,30 @@ const ProfileDetails = () => {
           </Form>
         ) : (
           <div>
-            <span className='text-slate-300/50 text-xs leading-none'>
-              description
-            </span>
-            <p className='text-indigo-200 leading-none'>
-              {localUser?.description ? localUser?.description : 'N/A'}
-            </p>
+            <div className='flex items-center justify-between border p-3 border-[#3B2655] rounded-md'>
+              <p className='text-sm text-indigo-200 leading-none'>
+                Copy Profile Link
+              </p>
+              {copied === '' ? (
+                <button
+                  onClick={() => copyToClipboard()}
+                  className='hover:text-indigo-400'
+                >
+                  <Copy className='w-4 h-4' />
+                </button>
+              ) : (
+                <span className='ml-2 text-green-300'>✓</span>
+              )}
+            </div>
+
+            <div className='mt-3'>
+              <span className='text-slate-300/50 text-xs leading-none'>
+                description
+              </span>
+              <p className='text-indigo-200 leading-none'>
+                {localUser?.description ? localUser?.description : 'N/A'}
+              </p>
+            </div>
           </div>
         )}
       </div>

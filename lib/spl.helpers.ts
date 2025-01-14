@@ -1,3 +1,4 @@
+import { Metaplex } from '@metaplex-foundation/js'
 import {
   ASSOCIATED_TOKEN_PROGRAM_ID,
   createAssociatedTokenAccountInstruction,
@@ -11,6 +12,7 @@ import {
   PublicKey,
   Transaction,
 } from '@solana/web3.js'
+
 export const getSplTokenAddress = (token: string) =>
   ({
     send: 'SENDdRQtYMWaQrBroBrJ2Q53fgVuq95CV9UPGEvpCxa',
@@ -104,4 +106,15 @@ export const SendSplToken = async (
   } catch (error: any) {
     throw new Error(error.message || 'Unknown error occurred')
   }
+}
+
+export const getTokenMetadata = async (
+  connection: Connection,
+  mintAddress: PublicKey
+) => {
+  const metaplex = Metaplex.make(connection)
+
+  const token = await metaplex.nfts().findByMint({ mintAddress: mintAddress })
+
+  return token
 }

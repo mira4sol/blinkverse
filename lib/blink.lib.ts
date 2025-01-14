@@ -4,6 +4,7 @@ import { PublicKey } from '@solana/web3.js'
 export const blinkError = (errorMessage: string) => {
   const action: ActionGetResponse = {
     title: 'An error occur',
+    // icon: ``,
     icon: `https://www.blinkverse.fun/images/blink_img.png`,
     description: ``,
     label: '',
@@ -22,16 +23,19 @@ export const generatePaymentBlink = (
     icon,
     label,
     baseURL,
+    isProfile,
   }: {
     title: string
     icon: string
     description: string
     label: string
     baseURL: string
+    isProfile: boolean
   }
 ) => {
   const payload: ActionGetResponse = {
     title,
+    // icon: icon || ``,
     icon: icon || `https://www.blinkverse.fun/images/blink_img.png`,
     description,
     label,
@@ -40,7 +44,7 @@ export const generatePaymentBlink = (
       actions: [
         {
           label: label || `Send 😉`,
-          href: `${baseURL}?amount={amount}&token={token}`,
+          href: `${baseURL}&amount={amount}&token={token}&isProfile=${isProfile}`,
           parameters: [
             {
               type: 'radio',
@@ -68,9 +72,70 @@ export const generatePaymentBlink = (
   })
 }
 
+export const generateSwapBlink = (
+  headers: Record<string, string>,
+  {
+    title,
+    description,
+    icon,
+    label,
+    baseURL,
+  }: {
+    title: string
+    icon: string
+    description: string
+    label: string
+    baseURL: string
+  }
+) => {
+  const payload: ActionGetResponse = {
+    title,
+    icon: icon || `https://www.blinkverse.fun/images/blink_img.png`,
+    description,
+    label,
+    type: 'action',
+    links: {
+      actions: [
+        {
+          label: '0.05 SOL', // button text
+          href: `${baseURL}&amount=0.01&type=swap`,
+        },
+        {
+          label: '0.1 SOL', // button text
+          href: `${baseURL}&amount=0.05&type=swap`,
+        },
+        {
+          label: '0.50 SOL', // button text
+          href: `${baseURL}&amount=0.1&type=swap`,
+        },
+        {
+          label: '1 SOL', // button text
+          href: `${baseURL}&amount=1&type=swap`,
+        },
+        {
+          label: 'Buy', // button text
+          href: `${baseURL}&amount={amount}`,
+          parameters: [
+            {
+              name: 'amount', // field name
+              label: 'Buy a custom amount in SOL', // text input placeholder
+            },
+          ],
+        },
+      ],
+    },
+  }
+
+  return Response.json(payload, {
+    headers,
+  })
+}
+
 export const validatedQueryParams = (requestUrl: URL) => {
   let amount: number = 0
   let token: string = ''
+  let isProfile: boolean = false
+  let type: string = ''
 
   let toPubkey: PublicKey = new PublicKey(
     '5QDwYS1CtHzN1oJ2eij8Crka4D2eJcUavMcyuvwNRM9'
@@ -97,6 +162,14 @@ export const validatedQueryParams = (requestUrl: URL) => {
   }
 
   try {
+    if (requestUrl.searchParams.get('isProfile')) {
+      isProfile = requestUrl.searchParams.get('isProfile')! === 'true'
+    }
+  } catch (err) {
+    throw 'Invalid input query parameter: isProfile'
+  }
+
+  try {
     if (requestUrl.searchParams.get('token')) {
       token = requestUrl.searchParams.get('token')!
     }
@@ -104,9 +177,19 @@ export const validatedQueryParams = (requestUrl: URL) => {
     throw 'Invalid input query parameter: to'
   }
 
+  try {
+    if (requestUrl.searchParams.get('type')) {
+      type = requestUrl.searchParams.get('type')!
+    }
+  } catch (err) {
+    throw 'Invalid input query parameter: type'
+  }
+
   return {
     amount,
     toPubkey,
     token,
+    isProfile,
+    type,
   }
 }

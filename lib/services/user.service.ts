@@ -8,7 +8,7 @@ export class UserService {
       const { data: users, error } = await supabaseClient
         .from('user')
         .select('*')
-        .eq('pub_key', pubKey)
+        .or(`pub_key.eq.${pubKey},id.eq.${pubKey}`)
 
       if (error)
         return apiResponse(false, error?.message || 'failed to get user', error)
